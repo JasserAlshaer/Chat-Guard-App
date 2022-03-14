@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "447384464323",
+    "project_id": "ase-2022",
+    "storage_bucket": "ase-2022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:447384464323:android:b3010e2f24412daf732b76",
+        "android_client_info": {
+          "package_name": "com.example.ase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "447384464323-us5v6jg81s65u6f1aqokkeb34g0jljnr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0F2FSSdux2TNC4qCxA-Xni8wsIS6lOp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "447384464323-us5v6jg81s65u6f1aqokkeb34g0jljnr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
