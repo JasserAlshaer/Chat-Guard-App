@@ -15,6 +15,7 @@ public class vehicle {
     public double Longitude;
 
     public vehicle() {
+
     }
 
     public vehicle(String palateNumber, boolean isAvailable, String reportId, String type, String driverName, String driverPhone, String centerId, double latitude, double longitude) {

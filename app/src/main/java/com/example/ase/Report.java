@@ -5,7 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 public class Report {
 
     public String ReportType;
-    public String IsTrackingLiveLocation;
+    public boolean IsTrackingLiveLocation;
     public double Latitude;
     public double Longitude;
     public String UserId;
