@@ -10,6 +10,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ASE">
         <activity
+            android:name="._12AssignedMissoin"
+            android:exported="false" />
+        <activity
+            android:name="._11FirstAisDetails"
+            android:exported="false" />
+        <activity
+            android:name="._10FinishTheMission"
+            android:exported="false" />
+        <activity
+            android:name="._9TrackingReportLocation"
+            android:exported="false" />
+        <activity
+            android:name="._8MoveCarToDealWithReport"
+            android:exported="false" />
+        <activity
+            android:name="._7LatestReports"
+            android:exported="false" />
+        <activity
+            android:name="._6Login"
+            android:exported="false" />
+        <activity
+            android:name="._5TrakingCar"
+            android:exported="false" />
+        <activity
+            android:name="._4NearestCenter"
+            android:exported="false" />
+        <activity
+            android:name="._3FirstAid"
+            android:exported="false" />
+        <activity
+            android:name="._2SendReport"
+            android:exported="false" />
+        <activity
+            android:name="._1CreateAccount"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
