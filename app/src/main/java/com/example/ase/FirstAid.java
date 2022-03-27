@@ -16,7 +16,7 @@ public class FirstAid {
     public FirstAid(String statusName, String statusDescription, String imagePath, List<AidSteps> stepsList) {
         this.statusName = statusName;
         this.statusDescription = statusDescription;
-        ImagePath = imagePath;
+        this.ImagePath = imagePath;
         this.stepsList = stepsList;
     }
 }

@@ -11,11 +11,11 @@ public class Center {
 
 
     public Center(String name, String adminId, String phone, double latitude, double longitude) {
-        Name = name;
-        AdminId = adminId;
-        Phone = phone;
-        Latitude = latitude;
-        Longitude = longitude;
+        this.Name = name;
+        this.AdminId = adminId;
+        this.Phone = phone;
+        this.Latitude = latitude;
+        this.Longitude = longitude;
     }
 
     public Center() {

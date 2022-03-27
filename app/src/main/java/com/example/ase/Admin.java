@@ -12,8 +12,8 @@ public class Admin {
     }
 
     public Admin(String adminName, String email, String password) {
-        AdminName = adminName;
-        Email = email;
-        Password = password;
+        this.AdminName = adminName;
+        this.Email = email;
+        this.Password = password;
     }
 }

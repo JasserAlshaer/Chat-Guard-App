@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_main.xml" value="0.16621376811594202" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/drawable-v24/dg4.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/drawable/activity_progress_dialog.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_0_check_account.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_12_assigned_missoin.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_9_tracking_report_location.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_main.xml" value="0.21" />
       </map>
     </option>
   </component>

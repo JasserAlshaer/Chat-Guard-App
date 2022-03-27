@@ -10,19 +10,20 @@ public class User {
     public double Longitude;
     public String SSN;
     public boolean IsAccountActivate;
-
+    public String ProfileImagePath;
     public User(){
 
     }
 
 
-    public User(String name, String email, String phoneNumber, double latitude, double longitude, String SSN, boolean isAccountActivate) {
-        Name = name;
-        Email = email;
-        PhoneNumber = phoneNumber;
-        Latitude = latitude;
-        Longitude = longitude;
+    public User(String name, String email, String phoneNumber, double latitude, double longitude, String SSN, boolean isAccountActivate,String ProfileImagePath) {
+        this.Name = name;
+        this.Email = email;
+        this.PhoneNumber = phoneNumber;
+        this.Latitude = latitude;
+        this.Longitude = longitude;
         this.SSN = SSN;
-        IsAccountActivate = isAccountActivate;
+        this.IsAccountActivate = isAccountActivate;
+        this.ProfileImagePath=ProfileImagePath;
     }
 }

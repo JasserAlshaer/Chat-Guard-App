@@ -15,6 +15,6 @@ public class AidSteps {
         this.serialNumber = serialNumber;
         this.stepDescription = stepDescription;
         this.stepName = stepName;
-        ImagePath = imagePath;
+        this.ImagePath = imagePath;
     }
 }

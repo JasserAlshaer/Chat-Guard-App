@@ -19,14 +19,14 @@ public class vehicle {
     }
 
     public vehicle(String palateNumber, boolean isAvailable, String reportId, String type, String driverName, String driverPhone, String centerId, double latitude, double longitude) {
-        PalateNumber = palateNumber;
-        IsAvailable = isAvailable;
-        ReportId = reportId;
-        Type = type;
-        DriverName = driverName;
-        DriverPhone = driverPhone;
-        CenterId = centerId;
-        Latitude = latitude;
-        Longitude = longitude;
+        this.PalateNumber = palateNumber;
+        this.IsAvailable = isAvailable;
+        this. ReportId = reportId;
+        this.Type = type;
+        this.DriverName = driverName;
+        this.DriverPhone = driverPhone;
+        this.CenterId = centerId;
+        this.Latitude = latitude;
+        this.Longitude = longitude;
     }
 }
