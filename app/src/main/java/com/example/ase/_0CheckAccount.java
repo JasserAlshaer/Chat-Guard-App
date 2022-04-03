@@ -46,6 +46,8 @@ public class _0CheckAccount extends AppCompatActivity {
 
         DefineMirrorObject();
         sharedPreferences=this.getSharedPreferences("com.example.ase", Context.MODE_PRIVATE);
+
+        //sharedPreferences.edit().putString("Email","mumail").apply();
         showIndeterminateProgressDialog();
         if(CheckIfAccountExists()){
             showIndeterminateProgressDialog();

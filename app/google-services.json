@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "447384464323",
+    "firebase_url": "https://ase-2022-default-rtdb.firebaseio.com",
     "project_id": "ase-2022",
     "storage_bucket": "ase-2022.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "447384464323-p04vtljul9go9c56n5tf62u0msavlf0d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ase",
+            "certificate_hash": "0b794e4c6911fb7751dd48be7583ca09f4cf32e3"
+          }
+        },
         {
           "client_id": "447384464323-us5v6jg81s65u6f1aqokkeb34g0jljnr.apps.googleusercontent.com",
           "client_type": 3

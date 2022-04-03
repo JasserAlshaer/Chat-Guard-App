@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        logo=(CircleImageView)findViewById(R.id.logoImage);
-        appName=(TextView)findViewById(R.id.applicationName);
+        logo=findViewById(R.id.logoImage);
+        appName=findViewById(R.id.applicationName);
         SetAnimation();
         ApplyThread();
         //Call Code
