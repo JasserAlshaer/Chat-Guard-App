@@ -57,7 +57,8 @@ public class _6Login extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 if(mAuth.getCurrentUser().isEmailVerified()){
-
+                                    _0CheckAccount.sharedPreferences.edit().putString("Email",userEmail).apply();
+                                    MoveToMainScreen();
                                     Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
 
                                 }else{
@@ -80,5 +81,9 @@ public class _6Login extends AppCompatActivity {
         emailLabel=findViewById(R.id.emailTextView);
         passwordLabel=findViewById(R.id.passwordTextView);
         signupLabel=findViewById(R.id.createAccountTextview);
+    }
+    public void MoveToMainScreen(){
+        Intent main=new Intent(_6Login.this,MainScreen.class);
+        startActivity(main);
     }
 }

@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ASE</string>
+
+
+    <string-array name="type">
+        <item>manual</item>
+        <item>automatic</item>
+    </string-array>
+    <string name="title_activity_5_tracking_cars">_5TrackingCars</string>
 </resources>
+

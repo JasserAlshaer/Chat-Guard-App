@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class _5TrakingCar extends AppCompatActivity {
+public class _13Numbers extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_5_traking_car);
+        setContentView(R.layout.activity_13_numbers);
     }
 }

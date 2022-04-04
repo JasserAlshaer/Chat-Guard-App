@@ -5,12 +5,26 @@
       <map>
         <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/drawable-v24/dg4.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/drawable/activity_progress_dialog.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.19814814814814816" />
         <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_0_check_account.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_10_finish_the_mission.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_11_first_ais_details.xml" value="0.18645833333333334" />
         <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_12_assigned_missoin.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_13_numbers.xml" value="0.18645833333333334" />
         <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_1_create_account.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_2_send_report.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_3_first_aid.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_4_nearest_center.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_5_tracking_cars.xml" value="0.18645833333333334" />
         <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_6_login.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_7_latest_reports.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_8_move_car_to_deal_with_report.xml" value="0.18645833333333334" />
         <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_9_tracking_report_location.xml" value="0.18645833333333334" />
         <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_main.xml" value="0.21" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/activity_main_screen.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/aidlist.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/main_user_screen_drawer.xml" value="0.18645833333333334" />
+        <entry key="..\:/Users/jasse/AndroidStudioProjects/ASE/app/src/main/res/layout/user_screen_action_bar.xml" value="0.18645833333333334" />
       </map>
     </option>
   </component>

@@ -90,7 +90,7 @@ public class _0CheckAccount extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot user : snapshot.getChildren()) {
                     User fetchedItem = user.getValue(User.class);
-                    if (user.getKey().equals(Id)) {
+                    if (fetchedItem.Email.equals(mail)) {
                         currentUser=fetchedItem;
                         progressDialog.hide();
                         GetWelcomeMassageDependOnDate();
