@@ -115,7 +115,7 @@ public class MainScreen extends AppCompatActivity  implements LocationListener {
         startActivity(moving);
     }
 
-    public void AboutUs(View view) {
+    public void Tracking(View view) {
         Intent moving=new Intent(MainScreen.this,_15AboutUs.class);
         startActivity(moving);
     }

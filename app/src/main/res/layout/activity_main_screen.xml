@@ -55,8 +55,8 @@
                     android:layout_rowWeight="1"
                     android:layout_margin="15dp"
                     android:background="#fff"
-                    android:text="About Us"
-                    android:onClick="AboutUs"
+                    android:text="Tracking"
+                    android:onClick="Tracking"
                     android:layout_columnWeight="1"/>
                 <Button
                     android:id="@+id/b3"

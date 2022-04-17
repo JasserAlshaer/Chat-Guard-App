@@ -38,8 +38,8 @@ public class _0CheckAccount extends AppCompatActivity {
     public BootstrapButton continueButton,loginButton;
     public ProgressDialog progressDialog;
     public  static  User currentUser;
-
-    String mail="",Id="";
+    public  static String userId;
+    public static String mail="",Id="",imagePath="",PhoneNumber="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +94,8 @@ public class _0CheckAccount extends AppCompatActivity {
                     User fetchedItem = user.getValue(User.class);
                     if (fetchedItem.Email.equals(mail)) {
                         currentUser=fetchedItem;
+                        userId=user.getKey();
+
                         progressDialog.hide();
                         GetWelcomeMassageDependOnDate();
                         if(currentUser.ProfileImagePath.equals("")){

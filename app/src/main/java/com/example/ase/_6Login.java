@@ -83,7 +83,7 @@ public class _6Login extends AppCompatActivity {
         signupLabel=findViewById(R.id.createAccountTextview);
     }
     public void MoveToMainScreen(){
-        Intent main=new Intent(_6Login.this,MainScreen.class);
+        Intent main=new Intent(_6Login.this,_0CheckAccount.class);
         startActivity(main);
     }
 }
