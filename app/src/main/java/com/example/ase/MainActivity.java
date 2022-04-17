@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        logo=findViewById(R.id.logoImage);
+        logo=findViewById(R.id.loto);
         appName=findViewById(R.id.applicationName);
         SetAnimation();
         ApplyThread();

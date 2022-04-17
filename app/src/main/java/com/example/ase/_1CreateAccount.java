@@ -47,12 +47,39 @@ public class _1CreateAccount extends AppCompatActivity {
         if(name.equals("")||email.equals("")||phone.equals("")||ssn.equals("")||ssn.length()<10){
             Toast.makeText(getApplicationContext(), "Please Fill The Required Data", Toast.LENGTH_SHORT).show();
         }else{
-                showIndeterminateProgressDialog();
-              User person=new User(name,email,phone,0.0,0.0,ssn,false,"");
-              databaseReference.child("User").push().setValue(person);
-              progressDialog.hide();
-              Toast.makeText(getApplicationContext(), "Please Verify Your email", Toast.LENGTH_SHORT).show();
-              finish();
+            showIndeterminateProgressDialog();
+            mAuth.createUserWithEmailAndPassword(email,ssn)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            User person=new User(name,email,phone,0.0,0.0,ssn,false,"");
+                                            databaseReference.child("User").push().setValue(person);
+                                            progressDialog.hide();
+                                            Toast.makeText(getApplicationContext(), "Please Verify Your email", Toast.LENGTH_SHORT).show();
+                                            finish();
+
+                                        }
+                                    }
+                                });
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                progressDialog.hide();
+                                Log.w("Data", "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(getApplicationContext(), "Authentication failed."+task.getException(),
+                                        Toast.LENGTH_LONG).show();
+
+
+                            }
+                        }
+                    });
+
+
             }
         }
 

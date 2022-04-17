@@ -38,19 +38,20 @@ public class _0CheckAccount extends AppCompatActivity {
     public BootstrapButton continueButton,loginButton;
     public ProgressDialog progressDialog;
     public  static  User currentUser;
+
     String mail="",Id="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_0_check_account);
-
+        progressDialog = new ProgressDialog(_0CheckAccount.this);
         DefineMirrorObject();
         sharedPreferences=this.getSharedPreferences("com.example.ase", Context.MODE_PRIVATE);
 
         //sharedPreferences.edit().putString("Email","mumail").apply();
         showIndeterminateProgressDialog();
         if(CheckIfAccountExists()){
-            showIndeterminateProgressDialog();
+
             LoadMyAccountInfo();
         }else{
             MoveToLogin();
@@ -80,6 +81,7 @@ public class _0CheckAccount extends AppCompatActivity {
     }
 
     public void LoadMyAccountInfo(){
+        showIndeterminateProgressDialog();
         //Fetch User Info By Object Id
         FirebaseApp.initializeApp(_0CheckAccount.this);
         DatabaseReference DbRef = FirebaseDatabase.getInstance().getReference().child("User");
@@ -94,12 +96,17 @@ public class _0CheckAccount extends AppCompatActivity {
                         currentUser=fetchedItem;
                         progressDialog.hide();
                         GetWelcomeMassageDependOnDate();
+                        if(currentUser.ProfileImagePath.equals("")){
+                            profileImage.setImageResource(R.drawable.man);
+                        }else{
+                            Glide.with(getApplicationContext()).load(currentUser.ProfileImagePath).into(profileImage);
+                        }
 
-                        Glide.with(getApplicationContext()).load(currentUser.ProfileImagePath).into(profileImage);
                         continueButton.setText("Continue As "+currentUser.Name);
 
                     }
                 }
+                progressDialog.hide();
             }
 
             @Override
@@ -118,11 +125,13 @@ public class _0CheckAccount extends AppCompatActivity {
     }
 
     public void ContinueToMyScreen(View view) {
+        Intent moving=new Intent(_0CheckAccount.this,MainScreen.class);
+        startActivity(moving);
     }
     private void showIndeterminateProgressDialog()
     {
 
-               ProgressDialog progressDialog = new ProgressDialog(_0CheckAccount.this);
+
 
                 // Set horizontal progress bar style.
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
