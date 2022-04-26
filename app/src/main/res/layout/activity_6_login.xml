@@ -63,7 +63,17 @@
         app:bootstrapBrand="info"
         android:layout_margin="5dp"
         app:bootstrapSize="md" />
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="110dp"
 
+        android:textSize="8pt"
+        android:textStyle="bold"
+        android:textColor="#130400"
+        android:text="Login  As Center Admin"
+        android:id="@+id/cheko"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

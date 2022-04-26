@@ -8,12 +8,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -27,11 +30,16 @@ public class _6Login extends AppCompatActivity {
     public TextView emailLabel,passwordLabel,signupLabel;
     public BootstrapEditText emailField,passwordField;
     private FirebaseAuth mAuth;
+    CheckBox admin_Login_Option;
+    public  static Center currentCenter;
+    public  String centerId="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_6_login);
         DefineObject();
+        currentCenter=new Center();
+        admin_Login_Option=(CheckBox)findViewById(R.id.cheko);
     }
 
     public void OnSignupLabelClicked(View view) {
@@ -49,30 +57,61 @@ public class _6Login extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Please Enter Email And SSN", Toast.LENGTH_SHORT).show();
         }else{
             //Continue Login Operation
+            if(admin_Login_Option.isChecked()){
+                FirebaseApp.initializeApp(_6Login.this);
+                DatabaseReference DbRef = FirebaseDatabase.getInstance().getReference().child("Center");
 
-            mAuth.signInWithEmailAndPassword(userEmail, userPassword)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                if(mAuth.getCurrentUser().isEmailVerified()){
-                                    _0CheckAccount.sharedPreferences.edit().putString("Email",userEmail).apply();
-                                    MoveToMainScreen();
-                                    Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
+                final Query AccountInfoQuery = DbRef.orderByChild("AdminEmail").equalTo(userEmail);
+                AccountInfoQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot center : snapshot.getChildren()) {
+                            Center fetchedItem = center.getValue(Center.class);
+                            if (fetchedItem.AdminEmail.equals(userEmail)
+                            && fetchedItem.AdminPassword.equals(userPassword)
+                            ) {
+                                currentCenter=fetchedItem;
+                                centerId=center.getKey();
 
-                                }else{
-                                    Toast.makeText(getApplicationContext(), "Please Verify Email", Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.i("Data", "signInWithEmail:failure", task.getException());
-                                Toast.makeText(getApplicationContext(), "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-
+                                Intent moveToCenterScreen=new Intent(_6Login.this,_7LatestReports.class);
+                                startActivity(moveToCenterScreen);
                             }
                         }
-                    });
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                        Toast.makeText(_6Login.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }else{
+                mAuth.signInWithEmailAndPassword(userEmail, userPassword)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    if(mAuth.getCurrentUser().isEmailVerified()){
+                                        _0CheckAccount.sharedPreferences.edit().putString("Email",userEmail).apply();
+                                        MoveToMainScreen();
+                                        Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
+
+                                    }else{
+                                        Toast.makeText(getApplicationContext(), "Please Verify Email", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    Log.i("Data", "signInWithEmail:failure", task.getException());
+                                    Toast.makeText(getApplicationContext(), "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
+                        });
+            }
+
         }
     }
     public void DefineObject(){

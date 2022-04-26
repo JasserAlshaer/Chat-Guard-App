@@ -11,17 +11,19 @@ public class Report {
     public String UserId;
     public String ImagePath;
     public String Notes;
+    public boolean IsCompleted;
 
     public Report() {
     }
 
-    public Report(String reportType, boolean isTrackingLiveLocation, double latitude, double longitude, String userId, String imagePath, String notes) {
-        this.ReportType = reportType;
-        this.IsTrackingLiveLocation = isTrackingLiveLocation;
-        this.Latitude = latitude;
-        this.Longitude = longitude;
-        this.UserId = userId;
-        this.ImagePath = imagePath;
-        this.Notes = notes;
+    public Report(String reportType, boolean isTrackingLiveLocation, double latitude, double longitude, String userId, String imagePath, String notes, boolean isCompleted) {
+        ReportType = reportType;
+        IsTrackingLiveLocation = isTrackingLiveLocation;
+        Latitude = latitude;
+        Longitude = longitude;
+        UserId = userId;
+        ImagePath = imagePath;
+        Notes = notes;
+        IsCompleted = isCompleted;
     }
 }

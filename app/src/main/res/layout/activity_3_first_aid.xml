@@ -24,6 +24,7 @@
             android:orientation="vertical"
             android:background="@drawable/dg4">
             <ListView
+                android:id="@+id/listItes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 

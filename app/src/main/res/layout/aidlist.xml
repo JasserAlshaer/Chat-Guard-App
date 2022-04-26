@@ -16,7 +16,7 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/employeeProfileImage"
+                android:id="@+id/ProfileImage"
                 android:layout_width="80dp"
                 android:layout_height="135dp"
                 android:layout_gravity="center_horizontal"
@@ -35,7 +35,15 @@
             android:layout_marginLeft="10dp">
 
             <TextView
-                android:id="@+id/totalPriceTextLabel"
+                android:id="@+id/nameTextLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total Price"
+                android:textSize="7pt"
+                android:layout_margin="6dp"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/distance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Total Price"
@@ -43,7 +51,7 @@
                 android:layout_margin="6dp"
                 android:textColor="@color/black"/>
             <Button
-                android:id="@+id/acceptOrderOffer"
+                android:id="@+id/buti"
                 android:padding="12dp"
                 android:layout_margin="5dp"
                 android:layout_width="match_parent"

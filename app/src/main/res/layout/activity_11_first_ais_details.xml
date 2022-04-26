@@ -5,59 +5,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white"
     tools:context="._11FirstAisDetails">
-    <include layout="@layout/user_screen_action_bar" />
-    <TextView
-        android:id="@+id/totalPriceOrderfinish"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Total Price :"
-        android:textColor="@color/black"
-        android:textSize="9pt"/>
-    <TextView
-        android:id="@+id/userpaymentLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=" The User Pay  :"
-        android:textColor="@color/black"
-        android:textSize="9pt"/>
-    <EditText
-        android:id="@+id/userPaymentEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        android:textColor="@color/black"
-        android:inputType="numberDecimal"/>
-    <TextView
-        android:id="@+id/notesTextLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=" Notes :"
-        android:textColor="@color/black"
-        android:textSize="9pt"/>
-    <com.beardedhen.androidbootstrap.BootstrapEditText
-        android:id="@+id/notesTextArea"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        app:bootstrapBrand="info"
-        android:textColor="@color/black"
-        app:bootstrapSize="xl"/>
-    <com.beardedhen.androidbootstrap.BootstrapButton
-        android:id="@+id/finishOrderbutton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Finish Order"
-        android:layout_margin="10dp"
-        android:textColor="@color/white"
-        android:textStyle="bold|italic"
-        app:bootstrapSize="xl"
-        app:buttonMode="regular"
-        app:roundedCorners="true"
-        app:showOutline="false"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <include layout="@layout/user_screen_action_bar" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:backgroundTint="#A31207"
+            android:background="#A50D02"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/dg4">
+            <ListView
+                android:id="@+id/listItes125"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
