@@ -9,6 +9,8 @@ public class vehicle {
     public String ReportId;
     public String Type;
     public String DriverName;
+    public String DriverEmail;
+    public String DriverPassword;
     public String DriverPhone;
     public String CenterId;
     public double Latitude;
@@ -18,15 +20,18 @@ public class vehicle {
 
     }
 
-    public vehicle(String palateNumber, boolean isAvailable, String reportId, String type, String driverName, String driverPhone, String centerId, double latitude, double longitude) {
-        this.PalateNumber = palateNumber;
-        this.IsAvailable = isAvailable;
-        this. ReportId = reportId;
-        this.Type = type;
-        this.DriverName = driverName;
-        this.DriverPhone = driverPhone;
-        this.CenterId = centerId;
-        this.Latitude = latitude;
-        this.Longitude = longitude;
+
+    public vehicle(String palateNumber, boolean isAvailable, String reportId, String type, String driverName, String driverEmail, String driverPassword, String driverPhone, String centerId, double latitude, double longitude) {
+        PalateNumber = palateNumber;
+        IsAvailable = isAvailable;
+        ReportId = reportId;
+        Type = type;
+        DriverName = driverName;
+        DriverEmail = driverEmail;
+        DriverPassword = driverPassword;
+        DriverPhone = driverPhone;
+        CenterId = centerId;
+        Latitude = latitude;
+        Longitude = longitude;
     }
 }

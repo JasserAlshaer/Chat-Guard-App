@@ -30,9 +30,11 @@ public class _6Login extends AppCompatActivity {
     public TextView emailLabel,passwordLabel,signupLabel;
     public BootstrapEditText emailField,passwordField;
     private FirebaseAuth mAuth;
-    CheckBox admin_Login_Option;
+    CheckBox admin_Login_Option,driverOption;
+    public static vehicle currentVehicle;
+
     public  static Center currentCenter;
-    public  String centerId="";
+    public static String centerId="",vehicleId="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ public class _6Login extends AppCompatActivity {
         DefineObject();
         currentCenter=new Center();
         admin_Login_Option=(CheckBox)findViewById(R.id.cheko);
+        driverOption=(CheckBox)findViewById(R.id.driver);
     }
 
     public void OnSignupLabelClicked(View view) {
@@ -86,7 +89,39 @@ public class _6Login extends AppCompatActivity {
                         Toast.makeText(_6Login.this, error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
-            }else{
+            }
+            else if(driverOption.isChecked()){
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                final DatabaseReference ref = database.child("Vehicle");
+
+
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            for (DataSnapshot childnow: dataSnapshot.getChildren()) {
+                                vehicle fetched=childnow.getValue(vehicle.class);
+                                if (fetched.DriverEmail.equals(userEmail)
+                                        && fetched.DriverPassword.equals(userPassword)
+                                ) {
+                                    currentVehicle=fetched;
+                                    vehicleId=childnow.getKey();
+
+                                    Intent moveToCenterScreen=new Intent(_6Login.this,_12AssignedMissoin.class);
+                                    startActivity(moveToCenterScreen);
+                                }
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.e("Null", "onCancelled", databaseError.toException());
+                    }
+                });
+            }
+            else{
                 mAuth.signInWithEmailAndPassword(userEmail, userPassword)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override

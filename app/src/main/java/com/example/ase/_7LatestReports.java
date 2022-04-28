@@ -32,6 +32,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class _7LatestReports extends AppCompatActivity {
     public ArrayList<Report> availableReports;
     public ArrayList<String> availableReportsNames;
+    public ArrayList<String> availableReportsId;
     public ListView availableItemsList;
     public ArrayAdapter availableItemsListAdapter;
     private ProgressDialog createNewDialog;
@@ -42,6 +43,7 @@ public class _7LatestReports extends AppCompatActivity {
         availableItemsList=findViewById(R.id.latest);
         availableReports=new ArrayList<Report>();
         availableReportsNames=new ArrayList<String>();
+        availableReportsId=new ArrayList<String>();
 
         updateScreenData();
     }
@@ -72,6 +74,7 @@ public class _7LatestReports extends AppCompatActivity {
                     if(fetchedItem.IsCompleted==false){
                         availableReports.add(fetchedItem);
                         availableReportsNames.add(fetchedItem.ReportType);
+                        availableReportsId.add(child.getKey());
                     }
 
                 }
@@ -96,6 +99,12 @@ public class _7LatestReports extends AppCompatActivity {
                             public void onClick(View v) {
                                 // Go To Available Cars
 
+                                Intent availableCars=new Intent(_7LatestReports.this,_8MoveCarToDealWithReport.class);
+                                availableCars.putExtra("ReportType",availableReports
+                                        .get(position).ReportType);
+                                availableCars.putExtra("Id",availableReportsId
+                                        .get(position));
+                                startActivity(availableCars);
                             }
                         });
                         return view;
@@ -111,5 +120,9 @@ public class _7LatestReports extends AppCompatActivity {
 
             }
         });
+    }
+    public void onMenuClicked(View view) {
+        Intent moving=new Intent(getApplicationContext(),_6Login.class);
+        startActivity(moving);
     }
 }

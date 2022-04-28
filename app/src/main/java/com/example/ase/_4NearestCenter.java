@@ -3,6 +3,8 @@ package com.example.ase;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -35,10 +37,12 @@ public class _4NearestCenter extends AppCompatActivity {
     public ListView availableItemsList;
     public ArrayAdapter availableItemsListAdapter;
     private ProgressDialog createNewDialog;
+    public DrawerLayout drawerMenuForUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_4_nearest_center);
+        drawerMenuForUser=findViewById(R.id.drawerMainScreenForUser);
         availableItemsList=findViewById(R.id.listItes1);
         availableCenters=new ArrayList<Center>();
         availableCentersNames=new ArrayList<String>();
@@ -112,5 +116,40 @@ public class _4NearestCenter extends AppCompatActivity {
 
             }
         });
+    }
+    public void onMenuClicked(View view) {
+        Intent moving=new Intent(getApplicationContext(),MainScreen.class);
+        startActivity(moving);
+    }
+    //This method do the opening drawer operation
+    public static void openDrawer(DrawerLayout draw) {
+        draw.openDrawer(GravityCompat.START);
+    }
+    //This method do the closing drawer operation
+    public static void closeDrawer(DrawerLayout draw) {
+        if(draw.isDrawerOpen(GravityCompat.START)){
+            draw.closeDrawer(GravityCompat.START);
+        }
+    }
+    public void MoveToFirstAds(View view){
+        Intent moving=new Intent(getApplicationContext(),_11FirstAisDetails.class);
+        startActivity(moving);
+    }
+    public void BackToHome(View view){
+        Intent moving=new Intent(getApplicationContext(),MainScreen.class);
+        startActivity(moving);
+    }
+
+
+    public void Center(View view){
+
+        Intent moving=new Intent(getApplicationContext(),_4NearestCenter.class);
+        startActivity(moving);
+
+    }
+
+    public void Numbers(View view){
+        Intent moving=new Intent(getApplicationContext(),_13Numbers.class);
+        startActivity(moving);
     }
 }

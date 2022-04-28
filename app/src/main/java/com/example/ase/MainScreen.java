@@ -42,19 +42,7 @@ public class MainScreen extends AppCompatActivity  implements LocationListener {
 
 
     }
-    public void onMenuClicked(View view) {
-        openDrawer(drawerMenuForUser);
-    }
-    //This method do the opening drawer operation
-    private static void openDrawer(DrawerLayout draw) {
-        draw.openDrawer(GravityCompat.START);
-    }
-    //This method do the closing drawer operation
-    private static void closeDrawer(DrawerLayout draw) {
-        if(draw.isDrawerOpen(GravityCompat.START)){
-            draw.closeDrawer(GravityCompat.START);
-        }
-    }
+
 
 
 
@@ -70,7 +58,7 @@ public class MainScreen extends AppCompatActivity  implements LocationListener {
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        Toast.makeText(MainScreen.this, location.getLatitude()+""+location.getLongitude(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainScreen.this, location.getLatitude()+""+location.getLongitude(), Toast.LENGTH_SHORT).show();
         lat=location.getLatitude();
         lon=location.getLongitude();
         try {
@@ -119,10 +107,29 @@ public class MainScreen extends AppCompatActivity  implements LocationListener {
         Intent moving=new Intent(MainScreen.this,_15AboutUs.class);
         startActivity(moving);
     }
+
+    public void onMenuClicked(View view) {
+        openDrawer(drawerMenuForUser);
+    }
+    //This method do the opening drawer operation
+    public static void openDrawer(DrawerLayout draw) {
+        draw.openDrawer(GravityCompat.START);
+    }
+    //This method do the closing drawer operation
+    public static void closeDrawer(DrawerLayout draw) {
+        if(draw.isDrawerOpen(GravityCompat.START)){
+            draw.closeDrawer(GravityCompat.START);
+        }
+    }
     public void MoveToFirstAds(View view){
-        Intent moving=new Intent(MainScreen.this,_11FirstAisDetails.class);
+        Intent moving=new Intent(MainScreen.this,_3FirstAid.class);
         startActivity(moving);
     }
+    public void BackToHome(View view){
+        Intent moving=new Intent(getApplicationContext(),MainScreen.class);
+        startActivity(moving);
+    }
+
 
     public void Center(View view){
         getLocation();

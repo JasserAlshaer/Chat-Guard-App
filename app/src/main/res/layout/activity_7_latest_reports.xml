@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/user_screen_action_bar" />
+        <include layout="@layout/user_sub_screen_action_bar" />
 
         <View
             android:layout_width="match_parent"

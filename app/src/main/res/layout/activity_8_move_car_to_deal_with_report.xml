@@ -5,13 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="._8MoveCarToDealWithReport">
+    tools:context="._4NearestCenter">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/user_screen_action_bar" />
+        <include layout="@layout/user_sub_screen_action_bar" />
 
         <View
             android:layout_width="match_parent"
@@ -24,6 +24,7 @@
             android:orientation="vertical"
             android:background="@drawable/dg4">
             <ListView
+                android:id="@+id/cars"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 

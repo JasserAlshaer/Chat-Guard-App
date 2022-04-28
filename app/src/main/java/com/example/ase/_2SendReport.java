@@ -46,7 +46,7 @@ public class _2SendReport extends AppCompatActivity {
         setContentView(R.layout.activity_2_send_report);
         // initiate a Switch
         simpleSwitch =findViewById(R.id.simpleSwitch);
-        uploadImage=findViewById(R.id.uploadProfileImage);
+        uploadImage=findViewById(R.id.uploadProfileImage3);
         sendReport=findViewById(R.id.continueRegistrationButton3);
         Notes=findViewById(R.id.ItemsDescription);
         reportType=findViewById(R.id.spn_trainType2);
@@ -106,7 +106,7 @@ public class _2SendReport extends AppCompatActivity {
         StorageReference storageRef = mfirebaseStorage.getReference();
         if(imageUri==null){
             Report aseReport=new Report(type,simpleSwitch.isChecked(),MainScreen.lat,MainScreen.lon
-                    ,_0CheckAccount.userId,"",notes);
+                    ,_0CheckAccount.userId,"",notes,false);
 
             FirebaseDatabase.getInstance().getReference().child("Report").push().setValue(aseReport)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -132,7 +132,7 @@ public class _2SendReport extends AppCompatActivity {
                             }else{
                                 //After Image Is getting Then Create object then Upload data to firebase
                                 Report aseReport=new Report(type,simpleSwitch.isChecked(),MainScreen.lat,MainScreen.lon
-                                        ,_0CheckAccount.userId,uri.toString(),notes);
+                                        ,_0CheckAccount.userId,uri.toString(),notes,false);
 
                                 FirebaseDatabase.getInstance().getReference().child("Report").push().setValue(aseReport)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {

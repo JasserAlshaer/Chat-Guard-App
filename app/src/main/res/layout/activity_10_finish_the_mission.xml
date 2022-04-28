@@ -8,39 +8,20 @@
     android:orientation="vertical"
     android:background="@color/white"
     tools:context="._10FinishTheMission">
-    <include layout="@layout/user_screen_action_bar" />
-    <TextView
-        android:id="@+id/totalPriceOrderfinish"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Total Price :"
-        android:textColor="@color/black"
-        android:textSize="9pt"/>
-    <TextView
-        android:id="@+id/userpaymentLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=" The User Pay  :"
-        android:textColor="@color/black"
-        android:textSize="9pt"/>
-    <EditText
-        android:id="@+id/userPaymentEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        android:textColor="@color/black"
-        android:inputType="numberDecimal"/>
+    <include layout="@layout/user_sub_screen_action_bar" />
+
     <TextView
         android:id="@+id/notesTextLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=" Notes :"
+        android:layout_marginTop="105dp"
         android:textColor="@color/black"
         android:textSize="9pt"/>
     <com.beardedhen.androidbootstrap.BootstrapEditText
         android:id="@+id/notesTextArea"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         android:inputType="text"
         app:bootstrapBrand="info"
         android:textColor="@color/black"
