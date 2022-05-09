@@ -75,7 +75,7 @@
         android:layout_height="70dp"
         android:gravity="center_vertical"
         android:layout_marginTop="0dp"
-        android:onClick="Numbers"
+        android:onClick="BackToHome"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="wrap_content"

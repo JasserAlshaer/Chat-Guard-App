@@ -33,7 +33,7 @@ public class _6Login extends AppCompatActivity {
     CheckBox admin_Login_Option,driverOption;
     public static vehicle currentVehicle;
 
-    public  static Center currentCenter;
+    public static Center currentCenter;
     public static String centerId="",vehicleId="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {

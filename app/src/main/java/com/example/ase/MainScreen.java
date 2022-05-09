@@ -20,6 +20,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,6 +35,7 @@ public class MainScreen extends AppCompatActivity  implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         drawerMenuForUser=findViewById(R.id.drawerMainScreenForUser);
+
 
         if(ContextCompat.checkSelfPermission(MainScreen.this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED){
@@ -104,7 +108,8 @@ public class MainScreen extends AppCompatActivity  implements LocationListener {
     }
 
     public void Tracking(View view) {
-        Intent moving=new Intent(MainScreen.this,_15AboutUs.class);
+        getLocation();
+        Intent moving=new Intent(MainScreen.this,_5TrackingCars.class);
         startActivity(moving);
     }
 
@@ -115,12 +120,7 @@ public class MainScreen extends AppCompatActivity  implements LocationListener {
     public static void openDrawer(DrawerLayout draw) {
         draw.openDrawer(GravityCompat.START);
     }
-    //This method do the closing drawer operation
-    public static void closeDrawer(DrawerLayout draw) {
-        if(draw.isDrawerOpen(GravityCompat.START)){
-            draw.closeDrawer(GravityCompat.START);
-        }
-    }
+
     public void MoveToFirstAds(View view){
         Intent moving=new Intent(MainScreen.this,_3FirstAid.class);
         startActivity(moving);

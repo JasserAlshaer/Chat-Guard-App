@@ -55,7 +55,7 @@
         app:bootstrapSize="md"
         app:bootstrapBrand="info"
         android:layout_marginTop="10dp"
-        android:inputType="text"
+        android:inputType="phone"
         android:textColor="#130400"
         android:id="@+id/newUserPhoneField"
         />
@@ -75,7 +75,7 @@
         app:bootstrapSize="md"
         app:bootstrapBrand="info"
         android:layout_marginTop="10dp"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:textColor="#130400"
 
         />

@@ -2,14 +2,18 @@ package com.example.ase;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +42,7 @@ public class _4NearestCenter extends AppCompatActivity {
     public ArrayAdapter availableItemsListAdapter;
     private ProgressDialog createNewDialog;
     public DrawerLayout drawerMenuForUser;
+    public AlertDialog.Builder dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +51,20 @@ public class _4NearestCenter extends AppCompatActivity {
         availableItemsList=findViewById(R.id.listItes1);
         availableCenters=new ArrayList<Center>();
         availableCentersNames=new ArrayList<String>();
-
+        dialog= new AlertDialog.Builder(_4NearestCenter.this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Oppps !")
+                .setMessage("There aren't any Nearest Center")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
         updateScreenData();
     }
-    public String getDistance(LatLng my_latlong) {
+    public float getDistance(LatLng my_latlong) {
         Location l1 = new Location("One");
         l1.setLatitude(my_latlong.latitude);
         l1.setLongitude(my_latlong.longitude);
@@ -59,7 +74,7 @@ public class _4NearestCenter extends AppCompatActivity {
         l2.setLongitude(MainScreen.lon);
 
         float distance = l1.distanceTo(l2)/1000;
-        return distance+" Km";
+        return distance;
     }
     private void updateScreenData() {
         availableCenters.clear();
@@ -71,44 +86,62 @@ public class _4NearestCenter extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("Center").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot child: snapshot.getChildren()) {
-                    Center fetchedItem=child.getValue(Center.class);
-                    availableCenters.add(fetchedItem);
-                    availableCentersNames.add(fetchedItem.Name);
-                }
-                availableItemsListAdapter=new ArrayAdapter
-                        (getApplicationContext(),R.layout.aidlist,R.id.nameTextLabel,availableCentersNames){
-                    @NonNull
-                    @Override
-                    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                        View view= super.getView(position, convertView, parent);
-                        TextView distance=view.findViewById(R.id.distance);
-                        LatLng cenLoc=new LatLng(availableCenters.get(position).Latitude,availableCenters.get(position).Longitude);
-                        distance.setText(getDistance(cenLoc)+"");
 
-                        CircleImageView imageView=view.findViewById(R.id.ProfileImage);
-                        Glide.
-                                with(getApplicationContext()).load(availableCenters
-                                .get(position).Image).into(imageView);
-                        Button getDir=view.findViewById(R.id.buti);
-                        getDir.setText("Get Directions");
-                        getDir.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // Get Direction For Selected Order
-                                String uri = String.format(Locale.getDefault(), "http://maps.google.com/maps?q=loc:%f,%f"
-                                        , availableCenters.get(position).Latitude
-                                        ,availableCenters.get(position).Longitude);
-                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                                startActivity(intent);
-                            }
-                        });
-                        return view;
+                    for (DataSnapshot child: snapshot.getChildren()) {
+                        Center fetchedItem=child.getValue(Center.class);
+                        LatLng cenLoc=new LatLng(fetchedItem.Latitude,fetchedItem.Longitude);
+                        if(getDistance(cenLoc)<=10){
+                            availableCenters.add(fetchedItem);
+                            availableCentersNames.add(fetchedItem.Name);
+                        }
+
                     }
-                };
-                availableItemsList.setAdapter(availableItemsListAdapter);
-                createNewDialog.dismiss();
-                availableItemsListAdapter.notifyDataSetChanged();
+                    if(availableCenters.size()>0) {
+                        availableItemsListAdapter = new ArrayAdapter
+                                (getApplicationContext(), R.layout.aidlist, R.id.nameTextLabel, availableCentersNames) {
+                            @NonNull
+                            @Override
+                            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                                View view = super.getView(position, convertView, parent);
+                                TextView distance = view.findViewById(R.id.distance);
+                                LatLng cenLoc = new LatLng(availableCenters.get(position).Latitude, availableCenters.get(position).Longitude);
+                                distance.setText(getDistance(cenLoc) + " Km");
+
+                                CircleImageView imageView = view.findViewById(R.id.ProfileImage);
+                                if (!availableCenters
+                                        .get(position).Image.equals("")) {
+                                    Glide.
+                                            with(getApplicationContext()).load(availableCenters
+                                            .get(position).Image).into(imageView);
+                                } else {
+                                    imageView.setImageResource(R.drawable.build);
+                                }
+
+                                Button getDir = view.findViewById(R.id.buti);
+                                getDir.setText("Get Directions");
+                                getDir.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        // Get Direction For Selected Order
+                                        String uri = String.format(Locale.getDefault(), "http://maps.google.com/maps?q=loc:%f,%f"
+                                                , availableCenters.get(position).Latitude
+                                                , availableCenters.get(position).Longitude);
+                                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                                        startActivity(intent);
+                                    }
+                                });
+                                return view;
+                            }
+                        };
+                        availableItemsList.setAdapter(availableItemsListAdapter);
+
+                        createNewDialog.dismiss();
+                        availableItemsListAdapter.notifyDataSetChanged();
+                    }else{
+                        dialog.show();
+                    }
+
+
 
             }
             @Override

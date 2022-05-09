@@ -40,9 +40,16 @@ public class _13Numbers extends AppCompatActivity {
         drawerMenuForUser=findViewById(R.id.drawerMainScreenForUser);
         availableItemsList=findViewById(R.id.listItes129);
         emergancyNumbers=new ArrayList<Numbers>();
-        temp=new ArrayList<String>();
-        //Please Fill Data Static
+        emergancyNumbers.add(new Numbers("طوارئ الأمن العام والدفاع المدني والدرك","911",R.drawable.poclice));
+        emergancyNumbers.add(new Numbers("\"إسال عن الكورونا\" للإستشارات الطبية","111",R.drawable.healty));
+        emergancyNumbers.add(new Numbers("للإبلاغ عن شكاوى تتعلق بالمشتقات النفطية والكهرباء","065805025",R.drawable.corona));
+        emergancyNumbers.add(new Numbers("وزارة المياه والري","065671017",R.drawable.water));
 
+        temp=new ArrayList<String>();
+        for (Numbers n:emergancyNumbers) {
+            temp.add(n.organizationName);
+        }
+        //Please Fill Data Static
         availableItemsListAdapter=new ArrayAdapter
                 (getApplicationContext(),R.layout.aidlist,R.id.nameTextLabel,temp){
             @NonNull
@@ -56,10 +63,9 @@ public class _13Numbers extends AppCompatActivity {
                 distance.setText(emergancyNumbers.get(position).phone);
 
                 CircleImageView imageView=view.findViewById(R.id.ProfileImage);
-                Glide.
-                        with(getApplicationContext()).load(emergancyNumbers.get(position).ImagePath)
-                        .into(imageView);
+               imageView.setImageResource(emergancyNumbers.get(position).ImagePath);
                 Button getDir=view.findViewById(R.id.buti);
+                getDir.setText("Call Now");
                 getDir.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

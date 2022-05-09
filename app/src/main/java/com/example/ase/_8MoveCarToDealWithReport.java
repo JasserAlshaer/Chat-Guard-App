@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,15 +43,27 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_8_move_car_to_deal_with_report);
-        availableItemsList=findViewById(R.id.latest);
+        availableItemsList=findViewById(R.id.cars);
         availableCars=new ArrayList<vehicle>();
         availableCarsDriverNames=new ArrayList<String>();
         availableCarsId=new ArrayList<String>();
-
+        FirebaseApp.initializeApp(_8MoveCarToDealWithReport.this);
         Intent data=getIntent();
         reportType =data.getStringExtra("ReportType");
         Id=data.getStringExtra("Id");
         updateScreenData(reportType);
+    }
+    public float getDistance(LatLng my_latlong) {
+        Location l1 = new Location("One");
+        l1.setLatitude(my_latlong.latitude);
+        l1.setLongitude(my_latlong.longitude);
+
+        Location l2 = new Location("Two");
+        l2.setLatitude(_7LatestReports.staticLatituide);
+        l2.setLongitude(_7LatestReports.staticLongtidue);
+
+        float distance = l1.distanceTo(l2)/1000;
+        return distance;
     }
     private void updateScreenData(String reportType) {
 
@@ -59,7 +72,7 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
         createNewDialog = new ProgressDialog(_8MoveCarToDealWithReport.this);
         createNewDialog.setMessage("Please Wait ... ");
         createNewDialog.show();
-        FirebaseApp.initializeApp(_8MoveCarToDealWithReport.this);
+
         FirebaseDatabase.getInstance().getReference().child("Vehicle").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -67,7 +80,7 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
                     vehicle fetchedItem=child.getValue(vehicle.class);
                     if(fetchedItem.IsAvailable=true){
                         if(reportType=="Fire"){
-                            if(fetchedItem.Type=="Fireلإruck") {
+                            if(fetchedItem.Type=="FireTruck") {
                                 availableCars.add(fetchedItem);
                                 availableCarsDriverNames.add(fetchedItem.DriverName);
                                 availableCarsId.add(child.getKey());
@@ -95,8 +108,10 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
                         View view= super.getView(position, convertView, parent);
                         TextView distance=view.findViewById(R.id.distance);
 
+                        distance.setText(getDistance(new LatLng(availableCars.get(position).Latitude,availableCars.get(position).Longitude))+" KM");
+
                         CircleImageView imageView=view.findViewById(R.id.ProfileImage);
-                        if(availableCars.get(position).Type=="Fireلإruck") {
+                        if(availableCars.get(position).Type=="FireTruck") {
                             imageView.setImageResource(R.drawable.fir);
                         }
                         else if(availableCars.get(position).Type=="Poc"){
@@ -136,19 +151,21 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
     public void AssignOrderCarAndUpdateInfo(String reportId,String carId){
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference ref = database.child("Vehicle");
-        final Query applesQuery = ref.child(carId);
 
-        applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     for (DataSnapshot childnow: dataSnapshot.getChildren()) {
                         vehicle fetched=childnow.getValue(vehicle.class);
-                        ref.child(carId).child("IsAvailable").setValue(false);
-                        ref.child(carId).child("ReportId").setValue(reportId);
+                        if (childnow.getKey()== carId
+                        ) {
+                            ref.child(carId).child("IsAvailable").setValue(false);
+                            ref.child(carId).child("ReportId").setValue(reportId);
+                            Toast.makeText(_8MoveCarToDealWithReport.this, "Done Success", Toast.LENGTH_SHORT).show();
 
-                        Toast.makeText(_8MoveCarToDealWithReport.this, "Done Success", Toast.LENGTH_SHORT).show();
-
+                        }
                     }
 
                 }
@@ -160,7 +177,6 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
             }
         });
 
-        // this method used to change Activation Status  for DeliveryMan
 
 
     }

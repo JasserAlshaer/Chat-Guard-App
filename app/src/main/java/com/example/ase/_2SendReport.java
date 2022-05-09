@@ -52,7 +52,7 @@ public class _2SendReport extends AppCompatActivity {
         reportType=findViewById(R.id.spn_trainType2);
         String [] categorySpinnerItems=getResources().getStringArray(R.array.type);
         spinnerAdapter =
-                new ArrayAdapter(_2SendReport.this, android.R.layout.simple_spinner_item,categorySpinnerItems);
+                new ArrayAdapter(_2SendReport.this,android.R.layout.simple_spinner_item,categorySpinnerItems);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         reportType.setAdapter(spinnerAdapter);
         reportType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -57,81 +57,84 @@ public class _12AssignedMissoin extends AppCompatActivity {
     private void updateScreenData() {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference ref = database.child("Vehicle");
-        final Query applesQuery = ref.child(_6Login.vehicleId);
 
-        applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    for (DataSnapshot childnow: dataSnapshot.getChildren()) {
-                        vehicle fetched=childnow.getValue(vehicle.class);
+                    for (DataSnapshot child: dataSnapshot.getChildren()) {
+                        vehicle fetched=child.getValue(vehicle.class);
+                        if(child.getKey()==_6Login.vehicleId){
+                            final DatabaseReference ref = database.child("Report");
+                            final Query applesQuery = ref.child(fetched.ReportId);
 
-                        final DatabaseReference ref = database.child("Report");
-                        final Query applesQuery = ref.child(fetched.ReportId);
+                            applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.exists()){
+                                        for (DataSnapshot child: dataSnapshot.getChildren()) {
+                                            Report fetchedItem=child.getValue(Report.class);
+                                            if(fetchedItem.IsCompleted==false){
+                                                availableReports.add(fetchedItem);
+                                                availableReportsNames.add(fetchedItem.ReportType);
+                                                availableReportsId.add(child.getKey());
+                                            }
 
-                        applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists()){
-                                    for (DataSnapshot child: dataSnapshot.getChildren()) {
-                                        Report fetchedItem=childnow.getValue(Report.class);
-                                        if(fetchedItem.IsCompleted==false){
-                                            availableReports.add(fetchedItem);
-                                            availableReportsNames.add(fetchedItem.ReportType);
-                                            availableReportsId.add(child.getKey());
                                         }
 
                                     }
+                                    availableItemsListAdapter=new ArrayAdapter
+                                            (getApplicationContext(),R.layout.orderitemlistdesign,R.id.orderforLabel,availableReportsNames){
+                                        @NonNull
+                                        @Override
+                                        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                                            View view= super.getView(position, convertView, parent);
+                                            TextView distance=view.findViewById(R.id.destance);
+                                            LatLng cenLoc=new LatLng(availableReports.get(position).Latitude,availableReports.get(position).Longitude);
+                                            distance.setText("Distance :  "+getDistance(cenLoc,new LatLng(_6Login.currentCenter.Latitude,_6Login.currentCenter.Longitude))+"");
 
+
+                                            Button getDir=view.findViewById(R.id.getDirectionsButton);
+                                            getDir.setText("Get Directions");
+                                            getDir.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    // Go To Available Cars
+
+                                                    // Get Direction For Selected Order
+                                                    String uri = String.format(Locale.getDefault(), "http://maps.google.com/maps?q=loc:%f,%f"
+                                                            , availableReports.get(position).Latitude
+                                                            ,availableReports.get(position).Longitude);
+                                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                                                    startActivity(intent);
+                                                }
+                                            });
+                                            Button finishMission=view.findViewById(R.id.finishOrderButtonByDelivery);
+                                            finishMission.setText("Finish Mission");
+                                            finishMission.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    FinishDealingWithReport(availableReportsId.get(position));
+                                                }
+                                            });
+
+                                            return view;
+                                        }
+                                    };
+                                    availableItemsList.setAdapter(availableItemsListAdapter);
+                                    createNewDialog.dismiss();
+                                    availableItemsListAdapter.notifyDataSetChanged();
                                 }
-                                availableItemsListAdapter=new ArrayAdapter
-                                        (getApplicationContext(),R.layout.orderitemlistdesign,R.id.orderforLabel,availableReportsNames){
-                                    @NonNull
-                                    @Override
-                                    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                                        View view= super.getView(position, convertView, parent);
-                                        TextView distance=view.findViewById(R.id.destance);
-                                        LatLng cenLoc=new LatLng(availableReports.get(position).Latitude,availableReports.get(position).Longitude);
-                                        distance.setText("Distance :  "+getDistance(cenLoc,new LatLng(_6Login.currentCenter.Latitude,_6Login.currentCenter.Longitude))+"");
 
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    Log.e("Null", "onCancelled", databaseError.toException());
+                                }
+                            });
 
-                                        Button getDir=view.findViewById(R.id.getDirectionsButton);
-                                        getDir.setText("Get Directions");
-                                        getDir.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                // Go To Available Cars
+                        }
 
-                                                // Get Direction For Selected Order
-                                                String uri = String.format(Locale.getDefault(), "http://maps.google.com/maps?q=loc:%f,%f"
-                                                        , availableReports.get(position).Latitude
-                                                        ,availableReports.get(position).Longitude);
-                                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                                                startActivity(intent);
-                                            }
-                                        });
-                                        Button finishMission=view.findViewById(R.id.finishOrderButtonByDelivery);
-                                        finishMission.setText("Finish Mission");
-                                        finishMission.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                FinishDealingWithReport(availableReportsId.get(position));
-                                            }
-                                        });
-
-                                        return view;
-                                    }
-                                };
-                                availableItemsList.setAdapter(availableItemsListAdapter);
-                                createNewDialog.dismiss();
-                                availableItemsListAdapter.notifyDataSetChanged();
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                                Log.e("Null", "onCancelled", databaseError.toException());
-                            }
-                        });
 
                         // this method used to change Activation Status  for DeliveryMan
 

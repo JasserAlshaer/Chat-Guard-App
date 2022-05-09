@@ -36,6 +36,7 @@ public class _7LatestReports extends AppCompatActivity {
     public ListView availableItemsList;
     public ArrayAdapter availableItemsListAdapter;
     private ProgressDialog createNewDialog;
+    public static double staticLatituide=0,staticLongtidue=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +48,7 @@ public class _7LatestReports extends AppCompatActivity {
 
         updateScreenData();
     }
-    public String getDistance(LatLng my_latlong,LatLng reportLoc) {
+    public float getDistance(LatLng my_latlong,LatLng reportLoc) {
         Location l1 = new Location("One");
         l1.setLatitude(my_latlong.latitude);
         l1.setLongitude(my_latlong.longitude);
@@ -57,7 +58,7 @@ public class _7LatestReports extends AppCompatActivity {
         l2.setLongitude(reportLoc.longitude);
 
         float distance = l1.distanceTo(l2)/1000;
-        return distance+" Km";
+        return distance;
     }
     private void updateScreenData() {
         availableReports.clear();
@@ -71,7 +72,8 @@ public class _7LatestReports extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot child: snapshot.getChildren()) {
                     Report fetchedItem=child.getValue(Report.class);
-                    if(fetchedItem.IsCompleted==false){
+                    LatLng cenLoc=new LatLng(fetchedItem.Latitude,fetchedItem.Longitude);
+                    if(fetchedItem.IsCompleted==false && getDistance(cenLoc,new LatLng(_6Login.currentCenter.Latitude,_6Login.currentCenter.Longitude))<=500){
                         availableReports.add(fetchedItem);
                         availableReportsNames.add(fetchedItem.ReportType);
                         availableReportsId.add(child.getKey());
@@ -86,14 +88,14 @@ public class _7LatestReports extends AppCompatActivity {
                         View view= super.getView(position, convertView, parent);
                         TextView distance=view.findViewById(R.id.distance);
                         LatLng cenLoc=new LatLng(availableReports.get(position).Latitude,availableReports.get(position).Longitude);
-                        distance.setText("Distance :  "+getDistance(cenLoc,new LatLng(_6Login.currentCenter.Latitude,_6Login.currentCenter.Longitude))+"");
+                        distance.setText("Distance :  "+getDistance(cenLoc,new LatLng(_6Login.currentCenter.Latitude,_6Login.currentCenter.Longitude))+" Km");
 
                         CircleImageView imageView=view.findViewById(R.id.ProfileImage);
                         Glide.
                                 with(getApplicationContext()).load(availableReports
                                 .get(position).ImagePath).into(imageView);
                         Button getDir=view.findViewById(R.id.buti);
-                        getDir.setText("Get Directions");
+                        getDir.setText("Move Car");
                         getDir.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -104,6 +106,8 @@ public class _7LatestReports extends AppCompatActivity {
                                         .get(position).ReportType);
                                 availableCars.putExtra("Id",availableReportsId
                                         .get(position));
+                                staticLatituide=availableReports.get(position).Latitude;
+                            staticLongtidue=availableReports.get(position).Longitude;
                                 startActivity(availableCars);
                             }
                         });
