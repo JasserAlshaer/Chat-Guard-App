@@ -55,93 +55,63 @@ public class _12AssignedMissoin extends AppCompatActivity {
         updateScreenData();
     }
     private void updateScreenData() {
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        final DatabaseReference ref = database.child("Vehicle");
-
-
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference().child("Report");
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     for (DataSnapshot child: dataSnapshot.getChildren()) {
-                        vehicle fetched=child.getValue(vehicle.class);
-                        if(child.getKey()==_6Login.vehicleId){
-                            final DatabaseReference ref = database.child("Report");
-                            final Query applesQuery = ref.child(fetched.ReportId);
-
-                            applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    if(dataSnapshot.exists()){
-                                        for (DataSnapshot child: dataSnapshot.getChildren()) {
-                                            Report fetchedItem=child.getValue(Report.class);
-                                            if(fetchedItem.IsCompleted==false){
-                                                availableReports.add(fetchedItem);
-                                                availableReportsNames.add(fetchedItem.ReportType);
-                                                availableReportsId.add(child.getKey());
-                                            }
-
-                                        }
-
-                                    }
-                                    availableItemsListAdapter=new ArrayAdapter
-                                            (getApplicationContext(),R.layout.orderitemlistdesign,R.id.orderforLabel,availableReportsNames){
-                                        @NonNull
-                                        @Override
-                                        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                                            View view= super.getView(position, convertView, parent);
-                                            TextView distance=view.findViewById(R.id.destance);
-                                            LatLng cenLoc=new LatLng(availableReports.get(position).Latitude,availableReports.get(position).Longitude);
-                                            distance.setText("Distance :  "+getDistance(cenLoc,new LatLng(_6Login.currentCenter.Latitude,_6Login.currentCenter.Longitude))+"");
-
-
-                                            Button getDir=view.findViewById(R.id.getDirectionsButton);
-                                            getDir.setText("Get Directions");
-                                            getDir.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    // Go To Available Cars
-
-                                                    // Get Direction For Selected Order
-                                                    String uri = String.format(Locale.getDefault(), "http://maps.google.com/maps?q=loc:%f,%f"
-                                                            , availableReports.get(position).Latitude
-                                                            ,availableReports.get(position).Longitude);
-                                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                                                    startActivity(intent);
-                                                }
-                                            });
-                                            Button finishMission=view.findViewById(R.id.finishOrderButtonByDelivery);
-                                            finishMission.setText("Finish Mission");
-                                            finishMission.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    FinishDealingWithReport(availableReportsId.get(position));
-                                                }
-                                            });
-
-                                            return view;
-                                        }
-                                    };
-                                    availableItemsList.setAdapter(availableItemsListAdapter);
-                                    createNewDialog.dismiss();
-                                    availableItemsListAdapter.notifyDataSetChanged();
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-                                    Log.e("Null", "onCancelled", databaseError.toException());
-                                }
-                            });
-
+                        Report fetchedItem=child.getValue(Report.class);
+                        if(fetchedItem.IsCompleted==false && fetchedItem.CarId==_6Login.vehicleId){
+                            availableReports.add(fetchedItem);
+                            availableReportsNames.add(fetchedItem.ReportType);
+                            availableReportsId.add(child.getKey());
                         }
-
-
-                        // this method used to change Activation Status  for DeliveryMan
-
 
                     }
 
                 }
+                availableItemsListAdapter=new ArrayAdapter
+                        (getApplicationContext(),R.layout.orderitemlistdesign,R.id.orderforLabel,availableReportsNames){
+                    @NonNull
+                    @Override
+                    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                        View view= super.getView(position, convertView, parent);
+                        TextView distance=view.findViewById(R.id.destance);
+                        LatLng report=new LatLng(availableReports.get(position).Latitude,availableReports.get(position).Longitude);
+                        distance.setText("Distance :  "+getDistance(report,new LatLng(_6Login.currentCenter.Latitude,_6Login.currentCenter.Longitude))+"");
+
+
+                        Button getDir=view.findViewById(R.id.getDirectionsButton);
+                        getDir.setText("Get Directions");
+                        getDir.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // Go To Available Cars
+
+                                // Get Direction For Selected Order
+                                String uri = String.format(Locale.getDefault(), "http://maps.google.com/maps?q=loc:%f,%f"
+                                        , availableReports.get(position).Latitude
+                                        ,availableReports.get(position).Longitude);
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                                startActivity(intent);
+                            }
+                        });
+                        Button finishMission=view.findViewById(R.id.finishOrderButtonByDelivery);
+                        finishMission.setText("Finish Mission");
+                        finishMission.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                FinishDealingWithReport(availableReportsId.get(position));
+                            }
+                        });
+
+                        return view;
+                    }
+                };
+                availableItemsList.setAdapter(availableItemsListAdapter);
+                createNewDialog.dismiss();
+                availableItemsListAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -149,10 +119,6 @@ public class _12AssignedMissoin extends AppCompatActivity {
                 Log.e("Null", "onCancelled", databaseError.toException());
             }
         });
-
-        // this method used to change Activation Status  for DeliveryMan
-
-
     }
     public String getDistance(LatLng my_latlong,LatLng reportLoc) {
         Location l1 = new Location("One");
@@ -173,54 +139,9 @@ public class _12AssignedMissoin extends AppCompatActivity {
     }
 
     public  void  FinishDealingWithReport(String Id){
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        //update Report
-        final DatabaseReference ref = database.child("Report");
-        final Query applesQuery = ref.child(Id);
-
-        applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot childnow: dataSnapshot.getChildren()) {
-                        vehicle fetched=childnow.getValue(vehicle.class);
-                        ref.child(Id).child("IsCompleted").setValue(true);
-
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("Null", "onCancelled", databaseError.toException());
-            }
-        });
-
-
-        //Update Car Status
-
-        final DatabaseReference ref2 = database.child("Vehicle");
-        final Query applesQuery2 = ref2.child(_6Login.vehicleId);
-
-        applesQuery2.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot childnow: dataSnapshot.getChildren()) {
-                        vehicle fetched=childnow.getValue(vehicle.class);
-                        ref2.child(_6Login.vehicleId).child("IsAvailable").setValue(true);
-                        Toast.makeText(_12AssignedMissoin.this, "Done", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("Null", "onCancelled", databaseError.toException());
-            }
-        });
-
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference().child("Report");
+        database.child(Id).child("IsCompleted").setValue(true);
+        FirebaseDatabase.getInstance().getReference().child("Vehicle").child(_6Login.vehicleId).child("IsAvailable").setValue(true);
+        updateScreenData();
     }
 }

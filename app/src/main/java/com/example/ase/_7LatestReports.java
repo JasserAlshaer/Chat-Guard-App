@@ -46,9 +46,16 @@ public class _7LatestReports extends AppCompatActivity {
         availableReportsNames=new ArrayList<String>();
         availableReportsId=new ArrayList<String>();
 
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         updateScreenData();
     }
-    public float getDistance(LatLng my_latlong,LatLng reportLoc) {
+
+    public float getDistance(LatLng my_latlong, LatLng reportLoc) {
         Location l1 = new Location("One");
         l1.setLatitude(my_latlong.latitude);
         l1.setLongitude(my_latlong.longitude);
@@ -101,14 +108,14 @@ public class _7LatestReports extends AppCompatActivity {
                             public void onClick(View v) {
                                 // Go To Available Cars
 
-                                Intent availableCars=new Intent(_7LatestReports.this,_8MoveCarToDealWithReport.class);
-                                availableCars.putExtra("ReportType",availableReports
+                                Intent seeAvailableCars=new Intent(_7LatestReports.this,_8MoveCarToDealWithReport.class);
+                                seeAvailableCars.putExtra("ReportType",availableReports
                                         .get(position).ReportType);
-                                availableCars.putExtra("Id",availableReportsId
+                                seeAvailableCars.putExtra("RId",availableReportsId
                                         .get(position));
                                 staticLatituide=availableReports.get(position).Latitude;
                             staticLongtidue=availableReports.get(position).Longitude;
-                                startActivity(availableCars);
+                                startActivity(seeAvailableCars);
                             }
                         });
                         return view;

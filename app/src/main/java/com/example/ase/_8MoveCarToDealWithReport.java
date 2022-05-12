@@ -47,10 +47,15 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
         availableCars=new ArrayList<vehicle>();
         availableCarsDriverNames=new ArrayList<String>();
         availableCarsId=new ArrayList<String>();
-        FirebaseApp.initializeApp(_8MoveCarToDealWithReport.this);
+
         Intent data=getIntent();
         reportType =data.getStringExtra("ReportType");
-        Id=data.getStringExtra("Id");
+        Id=data.getStringExtra("RId");
+        updateScreenData(reportType);
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
         updateScreenData(reportType);
     }
     public float getDistance(LatLng my_latlong) {
@@ -66,7 +71,7 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
         return distance;
     }
     private void updateScreenData(String reportType) {
-
+        FirebaseApp.initializeApp(this);
         availableCars.clear();
         availableCarsDriverNames.clear();
         createNewDialog = new ProgressDialog(_8MoveCarToDealWithReport.this);
@@ -129,9 +134,7 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
                             public void onClick(View v) {
                                 // Go To Available Cars
                                 AssignOrderCarAndUpdateInfo(Id,availableCarsId.get(position));
-                                Intent latestOrder=new Intent(_8MoveCarToDealWithReport.this,_7LatestReports.class);
 
-                                startActivity(latestOrder);
                             }
                         });
                         return view;
@@ -149,33 +152,19 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
         });
     }
     public void AssignOrderCarAndUpdateInfo(String reportId,String carId){
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        final DatabaseReference ref = database.child("Vehicle");
+        Toast.makeText(_8MoveCarToDealWithReport.this, carId+"Done Success"+reportId, Toast.LENGTH_SHORT).show();
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference().child("Vehicle");
 
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Report");
 
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot childnow: dataSnapshot.getChildren()) {
-                        vehicle fetched=childnow.getValue(vehicle.class);
-                        if (childnow.getKey()== carId
-                        ) {
-                            ref.child(carId).child("IsAvailable").setValue(false);
-                            ref.child(carId).child("ReportId").setValue(reportId);
-                            Toast.makeText(_8MoveCarToDealWithReport.this, "Done Success", Toast.LENGTH_SHORT).show();
+        database.child(carId).child("IsAvailable").setValue(false);
+        database.child(carId).child("ReportId").setValue(reportId);
+        reference.child(reportId).child("CarId").setValue(carId);
+        Toast.makeText(_8MoveCarToDealWithReport.this, "Done Success", Toast.LENGTH_SHORT).show();
 
-                        }
-                    }
+        Intent latestOrder=new Intent(_8MoveCarToDealWithReport.this,_7LatestReports.class);
 
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("Null", "onCancelled", databaseError.toException());
-            }
-        });
+        startActivity(latestOrder);
 
 
 

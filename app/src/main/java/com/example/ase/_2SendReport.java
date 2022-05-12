@@ -106,7 +106,7 @@ public class _2SendReport extends AppCompatActivity {
         StorageReference storageRef = mfirebaseStorage.getReference();
         if(imageUri==null){
             Report aseReport=new Report(type,simpleSwitch.isChecked(),MainScreen.lat,MainScreen.lon
-                    ,_0CheckAccount.userId,"",notes,false);
+                    ,_0CheckAccount.userId,"",notes,false,"");
 
             FirebaseDatabase.getInstance().getReference().child("Report").push().setValue(aseReport)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -132,7 +132,7 @@ public class _2SendReport extends AppCompatActivity {
                             }else{
                                 //After Image Is getting Then Create object then Upload data to firebase
                                 Report aseReport=new Report(type,simpleSwitch.isChecked(),MainScreen.lat,MainScreen.lon
-                                        ,_0CheckAccount.userId,uri.toString(),notes,false);
+                                        ,_0CheckAccount.userId,uri.toString(),notes,false,"");
 
                                 FirebaseDatabase.getInstance().getReference().child("Report").push().setValue(aseReport)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
