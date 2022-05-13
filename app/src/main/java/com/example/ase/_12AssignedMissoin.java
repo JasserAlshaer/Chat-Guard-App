@@ -62,7 +62,8 @@ public class _12AssignedMissoin extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     for (DataSnapshot child: dataSnapshot.getChildren()) {
                         Report fetchedItem=child.getValue(Report.class);
-                        if(fetchedItem.IsCompleted==false && fetchedItem.CarId==_6Login.vehicleId){
+                        if(fetchedItem.IsCompleted==false && fetchedItem.CarId==_6Login.vehicleId
+                           && fetchedItem.Status=="Under Process"){
                             availableReports.add(fetchedItem);
                             availableReportsNames.add(fetchedItem.ReportType);
                             availableReportsId.add(child.getKey());
@@ -141,6 +142,7 @@ public class _12AssignedMissoin extends AppCompatActivity {
     public  void  FinishDealingWithReport(String Id){
         DatabaseReference database = FirebaseDatabase.getInstance().getReference().child("Report");
         database.child(Id).child("IsCompleted").setValue(true);
+        database.child(Id).child("Status").setValue("Completed");
         FirebaseDatabase.getInstance().getReference().child("Vehicle").child(_6Login.vehicleId).child("IsAvailable").setValue(true);
         updateScreenData();
     }

@@ -16,7 +16,7 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity
-            android:name="._15AboutUs"
+            android:name="._9ActiveRepports"
             android:exported="false" />
         <activity
             android:name="._14UserProfile"
@@ -35,12 +35,6 @@
             android:exported="false" />
         <activity
             android:name="._11FirstAisDetails"
-            android:exported="false" />
-        <activity
-            android:name="._10FinishTheMission"
-            android:exported="false" />
-        <activity
-            android:name="._9TrackingReportLocation"
             android:exported="false" />
         <activity
             android:name="._8MoveCarToDealWithReport"

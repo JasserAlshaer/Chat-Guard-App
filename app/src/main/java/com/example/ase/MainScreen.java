@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -62,9 +63,13 @@ public class MainScreen extends AppCompatActivity  implements LocationListener {
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
+        DatabaseReference DbRef = FirebaseDatabase.getInstance().getReference().child("User");
         //Toast.makeText(MainScreen.this, location.getLatitude()+""+location.getLongitude(), Toast.LENGTH_SHORT).show();
         lat=location.getLatitude();
         lon=location.getLongitude();
+
+        DbRef.child(_0CheckAccount.userId) .child("Latitude").setValue(MainScreen.lat);
+        DbRef.child(_0CheckAccount.userId) .child("Longitude").setValue(MainScreen.lon);
         try {
             Geocoder myGeocoder=new Geocoder(MainScreen.this, Locale.getDefault());
             List<Address> addressList=myGeocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
@@ -109,7 +114,8 @@ public class MainScreen extends AppCompatActivity  implements LocationListener {
 
     public void Tracking(View view) {
         getLocation();
-        Intent moving=new Intent(MainScreen.this,_5TrackingCars.class);
+
+        Intent moving=new Intent(MainScreen.this,_9ActiveRepports.class);
         startActivity(moving);
     }
 

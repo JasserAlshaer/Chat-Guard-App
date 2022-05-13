@@ -160,6 +160,7 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
         database.child(carId).child("IsAvailable").setValue(false);
         database.child(carId).child("ReportId").setValue(reportId);
         reference.child(reportId).child("CarId").setValue(carId);
+        reference.child(reportId).child("Status").setValue("Under Process");
         Toast.makeText(_8MoveCarToDealWithReport.this, "Done Success", Toast.LENGTH_SHORT).show();
 
         Intent latestOrder=new Intent(_8MoveCarToDealWithReport.this,_7LatestReports.class);

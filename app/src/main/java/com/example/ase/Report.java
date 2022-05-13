@@ -13,12 +13,13 @@ public class Report {
     public String Notes;
     public boolean IsCompleted;
     public String CarId;
+    public String Status;
 
     public Report() {
     }
 
     public Report(String reportType, boolean isTrackingLiveLocation, double latitude, double longitude, String userId, String imagePath,
-                  String notes, boolean isCompleted,String CarId) {
+                  String notes, boolean isCompleted,String CarId,String Status) {
         ReportType = reportType;
         IsTrackingLiveLocation = isTrackingLiveLocation;
         Latitude = latitude;
@@ -27,6 +28,7 @@ public class Report {
         ImagePath = imagePath;
         Notes = notes;
         IsCompleted = isCompleted;
-        CarId=CarId;
+        this.CarId=CarId;
+        this.Status=Status;
     }
 }
