@@ -11,5 +11,6 @@
         <item>Others</item>
     </string-array>
     <string name="title_activity_5_tracking_cars">_5TrackingCars</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
 
