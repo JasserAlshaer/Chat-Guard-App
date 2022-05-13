@@ -70,6 +70,7 @@ public class MainScreen extends AppCompatActivity  implements LocationListener {
 
         DbRef.child(_0CheckAccount.userId) .child("Latitude").setValue(MainScreen.lat);
         DbRef.child(_0CheckAccount.userId) .child("Longitude").setValue(MainScreen.lon);
+
         try {
             Geocoder myGeocoder=new Geocoder(MainScreen.this, Locale.getDefault());
             List<Address> addressList=myGeocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
@@ -108,6 +109,7 @@ public class MainScreen extends AppCompatActivity  implements LocationListener {
     }
 
     public void EditProfile(View view) {
+        getLocation();
         Intent moving=new Intent(MainScreen.this,_14UserProfile.class);
         startActivity(moving);
     }
@@ -132,6 +134,7 @@ public class MainScreen extends AppCompatActivity  implements LocationListener {
         startActivity(moving);
     }
     public void BackToHome(View view){
+        getLocation();
         Intent moving=new Intent(getApplicationContext(),MainScreen.class);
         startActivity(moving);
     }
@@ -145,6 +148,7 @@ public class MainScreen extends AppCompatActivity  implements LocationListener {
     }
 
     public void Numbers(View view){
+        getLocation();
         Intent moving=new Intent(MainScreen.this,_13Numbers.class);
         startActivity(moving);
     }

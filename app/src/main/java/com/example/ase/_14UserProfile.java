@@ -54,8 +54,47 @@ public class _14UserProfile extends AppCompatActivity {
                 startActivityForResult(getImageFromGallery,1);
             }
         });
-        Glide.with(getApplicationContext()).load(_0CheckAccount.currentUser.ProfileImagePath).into(userImage);
-        PhoneNumber.setText(_0CheckAccount.currentUser.PhoneNumber);
+        LoadMyAccountInfo();
+    }
+    public  void LoadMyAccountInfo(){
+        //showIndeterminateProgressDialog();
+        //Fetch User Info By Object Id
+        FirebaseApp.initializeApp(_14UserProfile.this);
+        DatabaseReference DbRef = FirebaseDatabase.getInstance().getReference().child("User");
+
+        final Query AccountInfoQuery = DbRef.orderByChild("Email").equalTo(_0CheckAccount.mail);
+        AccountInfoQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot user : snapshot.getChildren()) {
+                    User fetchedItem = user.getValue(User.class);
+                    if (fetchedItem.Email.equals(_0CheckAccount.mail)) {
+                        _0CheckAccount.currentUser=fetchedItem;
+                        _0CheckAccount.userId=user.getKey();
+
+                        if(_0CheckAccount.currentUser.ProfileImagePath.equals("")){
+                            userImage.setImageResource(R.drawable.man);
+                        }else{
+                            Glide.with(getApplicationContext()).load(_0CheckAccount.currentUser.ProfileImagePath).into(userImage);
+                        }
+
+
+                        PhoneNumber.setText(_0CheckAccount.currentUser.PhoneNumber);
+
+
+
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Toast.makeText(_14UserProfile.this, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public void UpdateProfile(View view) {
@@ -107,6 +146,7 @@ public class _14UserProfile extends AppCompatActivity {
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
+
                                     Toast.makeText(_14UserProfile.this, "Upload Operation Failed ", Toast.LENGTH_SHORT).show();
                                 }
                             });

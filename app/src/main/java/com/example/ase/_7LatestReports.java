@@ -2,12 +2,16 @@ package com.example.ase;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +41,7 @@ public class _7LatestReports extends AppCompatActivity {
     public ArrayAdapter availableItemsListAdapter;
     private ProgressDialog createNewDialog;
     public static double staticLatituide=0,staticLongtidue=0;
+    public AlertDialog.Builder dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,15 +50,20 @@ public class _7LatestReports extends AppCompatActivity {
         availableReports=new ArrayList<Report>();
         availableReportsNames=new ArrayList<String>();
         availableReportsId=new ArrayList<String>();
-
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
+        dialog= new AlertDialog.Builder(_7LatestReports.this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Oppps !")
+                .setMessage("There aren't any Latest Report")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
         updateScreenData();
     }
+
 
     public float getDistance(LatLng my_latlong, LatLng reportLoc) {
         Location l1 = new Location("One");
@@ -80,8 +90,8 @@ public class _7LatestReports extends AppCompatActivity {
                 for (DataSnapshot child: snapshot.getChildren()) {
                     Report fetchedItem=child.getValue(Report.class);
                     LatLng cenLoc=new LatLng(fetchedItem.Latitude,fetchedItem.Longitude);
-                    if(fetchedItem.IsCompleted==false &&
-                            fetchedItem.Status=="Pending"&&
+                    if(!fetchedItem.IsCompleted &&
+                            fetchedItem.Status.equals("Pending")&&
                             getDistance(cenLoc,new LatLng(_6Login.currentCenter.Latitude,_6Login.currentCenter.Longitude))<=500){
                         availableReports.add(fetchedItem);
                         availableReportsNames.add(fetchedItem.ReportType);
@@ -89,6 +99,7 @@ public class _7LatestReports extends AppCompatActivity {
                     }
 
                 }
+                if(availableReports.size()>0) {
                 availableItemsListAdapter=new ArrayAdapter
                         (getApplicationContext(),R.layout.aidlist,R.id.nameTextLabel,availableReportsNames){
                     @NonNull
@@ -125,7 +136,9 @@ public class _7LatestReports extends AppCompatActivity {
                 };
                 availableItemsList.setAdapter(availableItemsListAdapter);
                 createNewDialog.dismiss();
-                availableItemsListAdapter.notifyDataSetChanged();
+                availableItemsListAdapter.notifyDataSetChanged();}else{
+                    dialog.show();
+                }
 
             }
             @Override

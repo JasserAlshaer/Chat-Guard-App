@@ -2,11 +2,15 @@ package com.example.ase;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,6 +43,7 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
     public ArrayAdapter availableItemsListAdapter;
     private ProgressDialog createNewDialog;
     public static String reportType="",Id="";
+    public AlertDialog.Builder dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,13 +56,21 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
         Intent data=getIntent();
         reportType =data.getStringExtra("ReportType");
         Id=data.getStringExtra("RId");
+        dialog= new AlertDialog.Builder(_8MoveCarToDealWithReport.this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Oppps !")
+                .setMessage("There aren't any Available Cars")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent m=new Intent(_8MoveCarToDealWithReport.this,_7LatestReports.class);
+                        startActivity(m);
+                    }
+                });
         updateScreenData(reportType);
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        updateScreenData(reportType);
-    }
+
     public float getDistance(LatLng my_latlong) {
         Location l1 = new Location("One");
         l1.setLatitude(my_latlong.latitude);
@@ -105,6 +118,7 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
 
 
                 }
+                if(availableCars.size()>0) {
                 availableItemsListAdapter=new ArrayAdapter
                         (getApplicationContext(),R.layout.aidlist,R.id.nameTextLabel,availableCarsDriverNames){
                     @NonNull
@@ -142,7 +156,9 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
                 };
                 availableItemsList.setAdapter(availableItemsListAdapter);
                 createNewDialog.dismiss();
-                availableItemsListAdapter.notifyDataSetChanged();
+                availableItemsListAdapter.notifyDataSetChanged();}else{
+                    dialog.show();
+                }
 
             }
             @Override

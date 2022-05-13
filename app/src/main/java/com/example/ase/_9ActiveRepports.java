@@ -2,10 +2,14 @@ package com.example.ase;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +38,7 @@ public class _9ActiveRepports extends AppCompatActivity {
     public ArrayAdapter availableItemsListAdapter;
     private ProgressDialog createNewDialog;
     public static Report selectedReportToTrack;
+    public AlertDialog.Builder dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +48,21 @@ public class _9ActiveRepports extends AppCompatActivity {
         availableReports=new ArrayList<Report>();
         availableReportsNames=new ArrayList<String>();
         availableReportsId=new ArrayList<String>();
-    }
-    @Override
-    protected void onStart() {
-        super.onStart();
+
+        dialog= new AlertDialog.Builder(_9ActiveRepports.this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Oppps !")
+                .setMessage("There aren't any Under Process Report")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
         updateScreenData();
     }
+
     private void updateScreenData() {
         availableReports.clear();
         availableReportsNames.clear();
@@ -62,14 +76,15 @@ public class _9ActiveRepports extends AppCompatActivity {
                 for (DataSnapshot child: snapshot.getChildren()) {
                     Report fetchedItem=child.getValue(Report.class);
 
-                    if(fetchedItem.IsCompleted==false && _0CheckAccount.userId==fetchedItem.UserId
-                       && fetchedItem.Status=="Under Process"){
+                    if(!fetchedItem.IsCompleted && _0CheckAccount.userId.equals(fetchedItem.UserId)
+                       && fetchedItem.Status.equals("Under Process")){
                         availableReports.add(fetchedItem);
                         availableReportsNames.add(fetchedItem.ReportType);
                         availableReportsId.add(child.getKey());
                     }
 
                 }
+                if(availableReports.size()>0) {
                 availableItemsListAdapter=new ArrayAdapter
                         (getApplicationContext(),R.layout.aidlist,R.id.nameTextLabel,availableReportsNames){
                     @NonNull
@@ -100,7 +115,9 @@ public class _9ActiveRepports extends AppCompatActivity {
                 };
                 availableItemsList.setAdapter(availableItemsListAdapter);
                 createNewDialog.dismiss();
-                availableItemsListAdapter.notifyDataSetChanged();
+                availableItemsListAdapter.notifyDataSetChanged();}else{
+                    dialog.show();
+                }
 
             }
             @Override
@@ -111,7 +128,7 @@ public class _9ActiveRepports extends AppCompatActivity {
     }
 
     public void onMenuClicked(View view) {
-        Intent moving=new Intent(getApplicationContext(),_6Login.class);
+        Intent moving=new Intent(getApplicationContext(),MainScreen.class);
         startActivity(moving);
     }
 }

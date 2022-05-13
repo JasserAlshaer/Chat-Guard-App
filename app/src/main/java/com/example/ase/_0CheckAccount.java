@@ -80,7 +80,7 @@ public class _0CheckAccount extends AppCompatActivity {
         startActivity(moveToLoginScreen);
     }
 
-    public void LoadMyAccountInfo(){
+    public  void LoadMyAccountInfo(){
         showIndeterminateProgressDialog();
         //Fetch User Info By Object Id
         FirebaseApp.initializeApp(_0CheckAccount.this);
@@ -130,7 +130,7 @@ public class _0CheckAccount extends AppCompatActivity {
         Intent moving=new Intent(_0CheckAccount.this,MainScreen.class);
         startActivity(moving);
     }
-    private void showIndeterminateProgressDialog()
+    private  void showIndeterminateProgressDialog()
     {
 
 
