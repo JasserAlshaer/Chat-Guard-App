@@ -168,7 +168,7 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
         });
     }
     public void AssignOrderCarAndUpdateInfo(String reportId,String carId){
-        Toast.makeText(_8MoveCarToDealWithReport.this, carId+"Done Success"+reportId, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(_8MoveCarToDealWithReport.this, carId+"Done Success"+reportId, Toast.LENGTH_SHORT).show();
         DatabaseReference database = FirebaseDatabase.getInstance().getReference().child("Vehicle");
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Report");
@@ -179,9 +179,7 @@ public class _8MoveCarToDealWithReport extends AppCompatActivity {
         reference.child(reportId).child("Status").setValue("Under Process");
         Toast.makeText(_8MoveCarToDealWithReport.this, "Done Success", Toast.LENGTH_SHORT).show();
 
-        Intent latestOrder=new Intent(_8MoveCarToDealWithReport.this,_7LatestReports.class);
-
-        startActivity(latestOrder);
+       //updateScreenData(reportType);
 
 
 

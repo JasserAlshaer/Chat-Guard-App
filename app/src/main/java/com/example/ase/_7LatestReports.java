@@ -58,7 +58,8 @@ public class _7LatestReports extends AppCompatActivity {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        finish();
+                        Intent m=new Intent(_7LatestReports.this,_6Login.class);
+                        startActivity(m);
                     }
                 });
         updateScreenData();

@@ -92,8 +92,7 @@ public class _9ActiveRepports extends AppCompatActivity {
                     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                         View view= super.getView(position, convertView, parent);
                         TextView distance=view.findViewById(R.id.distance);
-
-
+                        distance.setText(availableReports.get(position).Status);
                         CircleImageView imageView=view.findViewById(R.id.ProfileImage);
 
                         imageView.setImageResource(R.drawable.report);

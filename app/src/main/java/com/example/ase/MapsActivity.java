@@ -77,14 +77,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onTick(long millisUntilFinished) {
+                Toast.makeText(MapsActivity.this, "Check Map", Toast.LENGTH_SHORT).show();
                 if(_9ActiveRepports.selectedReportToTrack.IsTrackingLiveLocation){
                     getLocation();
-                    GetCarInfo(_9ActiveRepports.selectedReportToTrack.CarId);
                 }else{
                     lat=_9ActiveRepports.selectedReportToTrack.Latitude;
                     lon=_9ActiveRepports.selectedReportToTrack.Longitude;
-                    GetCarInfo(_9ActiveRepports.selectedReportToTrack.CarId);
                 }
+                GetCarInfo(_9ActiveRepports.selectedReportToTrack.CarId);
             }
 
             @Override
