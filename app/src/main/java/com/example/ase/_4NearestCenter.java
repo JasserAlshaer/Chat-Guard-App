@@ -90,10 +90,10 @@ public class _4NearestCenter extends AppCompatActivity {
                     for (DataSnapshot child: snapshot.getChildren()) {
                         Center fetchedItem=child.getValue(Center.class);
                         LatLng cenLoc=new LatLng(fetchedItem.Latitude,fetchedItem.Longitude);
-                        if(getDistance(cenLoc)<=10){
+
                             availableCenters.add(fetchedItem);
                             availableCentersNames.add(fetchedItem.Name);
-                        }
+
 
                     }
                     if(availableCenters.size()>0) {

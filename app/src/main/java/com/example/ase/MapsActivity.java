@@ -13,8 +13,11 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.Toast;
 
+import com.beardedhen.androidbootstrap.BootstrapAlert;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.ase.databinding.ActivityMapsBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,7 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static double lat,lon;
     public static vehicle currentCars;
     public CountDownTimer trackingOrder;
-
+    public BootstrapEditText dist,time;
 
 
     @Override
@@ -50,7 +53,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(binding.getRoot());
 
         GetCarInfo(_9ActiveRepports.selectedReportToTrack.CarId);
-
+        dist=findViewById(R.id.dis);
+        time=findViewById(R.id.deliv);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -105,20 +109,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userOrReportLocation,17));
         getLocation();
-        // Add a marker in Sydney and move the camera
-       /* if(_9ActiveRepports.selectedReportToTrack.IsTrackingLiveLocation){
-            getLocation();
-        }else{
-            LatLng userOrReportLocation = new LatLng(lat, lon);
-            mMap.addMarker(new MarkerOptions().position(userOrReportLocation).title("User")
-                    .icon(BitmapDescriptorFactory.
-                            defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
-            LatLng CarLocation = new LatLng(currentCars.Latitude, currentCars.Longitude);
-            mMap.addMarker(new MarkerOptions().position(CarLocation).title("Car").icon(BitmapDescriptorFactory.
-                    defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userOrReportLocation,15));
-        }*/
     }
 
     @SuppressLint("MissingPermission")
@@ -136,6 +127,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if(_9ActiveRepports.selectedReportToTrack.IsTrackingLiveLocation){
             lat=location.getLatitude();
             lon=location.getLongitude();
+
+
+
         }else{
             lat=_9ActiveRepports.selectedReportToTrack.Latitude;
             lon=_9ActiveRepports.selectedReportToTrack.Longitude;
@@ -151,8 +145,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(CarLocation).title("Car").icon(BitmapDescriptorFactory.
                 defaultMarker(BitmapDescriptorFactory.HUE_RED)));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userOrReportLocation,17));
-    }
 
+        //show time
+        time.setText("Time = "+(getDistance(userOrReportLocation,CarLocation)/13)/60+"Min");
+        //show distance
+        dist.setText("Distance = "+getDistance(userOrReportLocation,CarLocation)+" Meters");
+
+    }
+    public double getDistance(LatLng my_latlong,LatLng car) {
+        Location l1 = new Location("One");
+        l1.setLatitude(my_latlong.latitude);
+        l1.setLongitude(my_latlong.longitude);
+
+        Location l2 = new Location("Two");
+        l2.setLatitude(car.latitude);
+        l2.setLongitude(car.longitude);
+
+        float distance = l1.distanceTo(l2)/1000;
+
+        return distance;
+    }
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
 
@@ -191,5 +203,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Toast.makeText(MapsActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void Finish(View view) {
+        finish();
     }
 }

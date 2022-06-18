@@ -130,6 +130,7 @@ public class MainScreen extends AppCompatActivity  implements LocationListener {
     }
 
     public void MoveToFirstAds(View view){
+        getLocation();
         Intent moving=new Intent(MainScreen.this,_3FirstAid.class);
         startActivity(moving);
     }
