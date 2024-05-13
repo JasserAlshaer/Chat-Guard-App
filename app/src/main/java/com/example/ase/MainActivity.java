@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
                 super.run();
                 try {
                     sleep(4000);
-                    Intent intent = new Intent(getApplicationContext(),_0CheckAccount.class);
+                    Intent intent = new Intent(getApplicationContext(),_2SendReport.class);
                     startActivity(intent);
                     finish();
                 } catch (InterruptedException e) {

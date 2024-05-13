@@ -8,63 +8,17 @@
     android:orientation="vertical"
     android:background="@color/white"
     tools:context="._2SendReport">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp">
 
-        <ImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/ItemImagePreview3"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:src="@drawable/logo"
-            android:layout_margin="5dp"
-            app:civ_border_width="2dp"
-            android:layout_gravity="center_horizontal"
-            app:civ_border_color="#FF000000"/>
-
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="0dp">
-        <com.beardedhen.androidbootstrap.BootstrapButton
-            android:id="@+id/uploadProfileImage3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#130400"
-            android:text="Pick Image From Gallary"
-            android:layout_marginLeft="3dp"
-            android:layout_gravity="center"
-            app:bootstrapSize="xl"
-            app:buttonMode="regular"
-            app:roundedCorners="true"
-            app:showOutline="false"
-            android:textStyle="bold|italic"/>
+        android:padding="0dp"
+        android:layout_marginTop="150dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="5dp"
-            android:text=" Type :"
-            android:textStyle="bold"
-            android:textSize="9pt"
-
-            android:textColor="#130400" />
-        <Spinner android:id="@+id/spn_trainType2"
-            android:layout_width="match_parent"
-            android:layout_marginTop="0dp"
-            android:layout_height="40dp"
-            android:entries="@array/type"
-
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Notes :"
+            android:text="Message Text"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:textSize="9pt"
@@ -81,22 +35,6 @@
             app:bootstrapBrand="info"
             app:bootstrapSize="xl"
             />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Share Live Location"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:textSize="9pt"
-            android:textStyle="bold"
-            android:textColor="#130400"/>
-        <Switch
-            android:id="@+id/simpleSwitch"
-            android:layout_width="60dp"
-            android:layout_height="35dp"
-            android:checked="false"
-            />
-
     </LinearLayout>
 
     <com.beardedhen.androidbootstrap.BootstrapButton
@@ -106,11 +44,138 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:backgroundTint="#130400"
-        android:text="Send Reports"
+        android:text="Test Message"
         android:onClick="SendingReports"
         android:textStyle="bold|italic"
         app:bootstrapSize="xl"
         app:buttonMode="regular"
         app:roundedCorners="true"
         app:showOutline="false" />
+
+    <!--Linear layout to display pie chart -->
+    <!-- and details of pie chart-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <!--Pie chart to display the data-->
+
+        <org.eazegraph.lib.charts.PieChart
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/piechart"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:padding="6dp"
+            android:layout_weight="1"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
+
+            />
+
+        <!--Creating another linear layout -->
+        <!-- to display pie chart details -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical">
+
+                <!--View to display the yellow color icon-->
+                <View
+                    android:layout_width="15dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/R"/>
+
+                <!--Text view to display R -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ٍNot Spam"
+                    android:paddingLeft="10dp"/>
+
+            </LinearLayout>
+
+            <!--Linear layout to display Python-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="5dp">
+
+                <!--View to display the green color icon-->
+                <View
+                    android:layout_width="15dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/Python"/>
+
+                <!--Text view to display python text -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ham"
+                    android:paddingLeft="10dp"/>
+
+            </LinearLayout>
+
+            <!--Linear layout to display C++-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="5dp">
+
+                <!--View to display the red color icon-->
+                <View
+                    android:layout_width="15dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/CPP"/>
+
+                <!--Text view to display C++ text -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:text="Spam"
+                    android:textSize="30dp"
+                    android:paddingLeft="10dp"/>
+
+            </LinearLayout>
+
+            <!--Linear layout to display Java-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="5dp">
+
+                <!--View to display the blue color icon-->
+                <View
+                    android:layout_width="15dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/Java"/>
+
+                <!--Text view to display Java text -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Good"
+                    android:paddingLeft="10dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

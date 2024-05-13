@@ -54,113 +54,13 @@ public class _14UserProfile extends AppCompatActivity {
                 startActivityForResult(getImageFromGallery,1);
             }
         });
-        LoadMyAccountInfo();
-    }
-    public  void LoadMyAccountInfo(){
-        //showIndeterminateProgressDialog();
-        //Fetch User Info By Object Id
-        FirebaseApp.initializeApp(_14UserProfile.this);
-        DatabaseReference DbRef = FirebaseDatabase.getInstance().getReference().child("User");
-
-        final Query AccountInfoQuery = DbRef.orderByChild("Email").equalTo(_0CheckAccount.mail);
-        AccountInfoQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot user : snapshot.getChildren()) {
-                    User fetchedItem = user.getValue(User.class);
-                    if (fetchedItem.Email.equals(_0CheckAccount.mail)) {
-                        _0CheckAccount.currentUser=fetchedItem;
-                        _0CheckAccount.userId=user.getKey();
-
-                        if(_0CheckAccount.currentUser.ProfileImagePath.equals("")){
-                            userImage.setImageResource(R.drawable.man);
-                        }else{
-                            Glide.with(getApplicationContext()).load(_0CheckAccount.currentUser.ProfileImagePath).into(userImage);
-                        }
-
-
-                        PhoneNumber.setText(_0CheckAccount.currentUser.PhoneNumber);
-
-
-
-
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Toast.makeText(_14UserProfile.this, error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+        //LoadMyAccountInfo();
     }
 
     public void UpdateProfile(View view) {
         phones=PhoneNumber.getText().toString();
         //Fetch User Info By Object Id
-        FirebaseApp.initializeApp(_14UserProfile.this);
-        DatabaseReference DbRef = FirebaseDatabase.getInstance().getReference().child("User");
-        FirebaseStorage mfirebaseStorage=FirebaseStorage.getInstance();
-        // Create a storage reference from our app
-        StorageReference storageRef = mfirebaseStorage.getReference();
-
-        final Query AccountInfoQuery = DbRef.orderByChild("Email").equalTo(_0CheckAccount.mail);
-        AccountInfoQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot user : snapshot.getChildren()) {
-                    User fetchedItem = user.getValue(User.class);
-                    if (fetchedItem.Email.equals(_0CheckAccount.mail)) {
-                        if(imageUri==null){
-                            DbRef.child(user.getKey()) .child("PhoneNumber").setValue(phones);
-                            DbRef.child(user.getKey()) .child("Latitude").setValue(MainScreen.lat);
-                            DbRef.child(user.getKey()) .child("Longitude").setValue(MainScreen.lon);
-                            Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }else{
-                            StorageReference fileUploadingReference = storageRef.child(System.currentTimeMillis()+"."+getFileExtention(imageUri));
-                            fileUploadingReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                                    fileUploadingReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                        @Override
-                                        public void onSuccess(Uri uri) {
-                                            DbRef.child(user.getKey()) .child("ProfileImagePath").setValue(uri.toString());
-                                            DbRef.child(user.getKey()) .child("PhoneNumber").setValue(phones);
-                                            DbRef.child(user.getKey()) .child("Latitude").setValue(MainScreen.lat);
-                                            DbRef.child(user.getKey()) .child("Longitude").setValue(MainScreen.lon);
-                                            Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
-                                            finish();
-
-                                        }
-                                    });
-                                }
-                            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-
-                                    Toast.makeText(_14UserProfile.this, "Upload Operation Failed ", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-                Toast.makeText(_14UserProfile.this, error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+        Toast.makeText(_14UserProfile.this, "Not Implemented Yet", Toast.LENGTH_SHORT).show();
     }
 
     @Override

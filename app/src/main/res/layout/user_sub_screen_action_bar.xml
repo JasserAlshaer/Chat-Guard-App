@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="ASE"
+        android:text="Chat Guard"
         android:textSize="26sp"
         android:background="@color/white"
         android:textColor="#A72016"

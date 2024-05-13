@@ -12,27 +12,6 @@
         android:layout_height="70dp"
         android:gravity="center_vertical"
         android:layout_marginTop="0dp"
-        android:onClick="MoveToFirstAds"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40sp"
-            android:src="@drawable/ic_baseline_local_hospital_24"
-           />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="First Aids"
-            android:layout_marginLeft="50sp"
-            android:textSize="22sp"
-            android:textColor="@color/black"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:gravity="center_vertical"
-        android:layout_marginTop="0dp"
         android:onClick="Center"
         android:orientation="horizontal">
         <ImageView
@@ -44,7 +23,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nearest Center"
+            android:text="Home Page"
             android:layout_marginLeft="50sp"
             android:textSize="22sp"
             android:textColor="@color/black"/>
@@ -65,7 +44,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Emergency Numbers"
+            android:text="Latest Chats"
             android:layout_marginLeft="50sp"
             android:textSize="22sp"
             android:textColor="@color/black"/>
@@ -86,7 +65,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Back To Home"
+            android:text="Logout"
             android:layout_marginLeft="50sp"
             android:textSize="22sp"
             android:textColor="@color/black"/>
