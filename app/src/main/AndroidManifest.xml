@@ -42,13 +42,13 @@
             android:name="._9ActiveRepports"
             android:exported="false" />
         <activity
-            android:name="._14UserProfile"
+            android:name="com.example.ase._14UserProfile"
             android:exported="false" />
         <activity
             android:name="._13Numbers"
             android:exported="false" />
         <activity
-            android:name=".MainScreen"
+            android:name="com.example.ase.MainScreen"
             android:exported="false" />
         <activity
             android:name="._0CheckAccount"
@@ -63,10 +63,10 @@
             android:name="._8MoveCarToDealWithReport"
             android:exported="false" />
         <activity
-            android:name="._7LatestReports"
+            android:name="com.example.ase._7LatestReports"
             android:exported="false" />
         <activity
-            android:name="._6Login"
+            android:name="com.example.ase._6Login"
             android:exported="false" />
         <activity
             android:name="._4NearestCenter"
@@ -75,13 +75,13 @@
             android:name="._3FirstAid"
             android:exported="false" />
         <activity
-            android:name="._2SendReport"
+            android:name="com.example.ase._2SendReport"
             android:exported="false" />
         <activity
-            android:name="._1CreateAccount"
+            android:name="com.example.ase._1CreateAccount"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.ase.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

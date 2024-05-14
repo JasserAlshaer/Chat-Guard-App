@@ -18,12 +18,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Message Text"
+            android:text="Spam Filltering App"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:textSize="9pt"
             android:textStyle="bold"
-
             android:textColor="#130400"/>
         <com.beardedhen.androidbootstrap.BootstrapEditText
             android:id="@+id/ItemsDescription"
@@ -45,6 +44,21 @@
         android:layout_marginTop="30dp"
         android:backgroundTint="#130400"
         android:text="Test Message"
+        android:onClick="SendingReports"
+        android:textStyle="bold|italic"
+        app:bootstrapSize="xl"
+        app:buttonMode="regular"
+        app:roundedCorners="true"
+        app:showOutline="false" />
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/continueRegistrationButton4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#130400"
+        android:text="Train Model"
         android:onClick="SendingReports"
         android:textStyle="bold|italic"
         app:bootstrapSize="xl"
@@ -124,55 +138,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ham"
-                    android:paddingLeft="10dp"/>
-
-            </LinearLayout>
-
-            <!--Linear layout to display C++-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="5dp">
-
-                <!--View to display the red color icon-->
-                <View
-                    android:layout_width="15dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/CPP"/>
-
-                <!--Text view to display C++ text -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="45dp"
                     android:text="Spam"
-                    android:textSize="30dp"
                     android:paddingLeft="10dp"/>
 
             </LinearLayout>
 
-            <!--Linear layout to display Java-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="5dp">
-
-                <!--View to display the blue color icon-->
-                <View
-                    android:layout_width="15dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/Java"/>
-
-                <!--Text view to display Java text -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Good"
-                    android:paddingLeft="10dp"/>
-
-            </LinearLayout>
 
         </LinearLayout>
 

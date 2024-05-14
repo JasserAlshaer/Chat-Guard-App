@@ -30,7 +30,7 @@
         android:text="Chat Guard"
         android:layout_marginLeft="5dp"
         android:textAlignment="center"
-        android:textColor="#fff"
+        android:textColor="#000"
         android:textSize="22pt"
 
         android:textStyle="bold"
